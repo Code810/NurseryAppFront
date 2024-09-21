@@ -15,14 +15,14 @@ const Banner = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get('http://localhost:5180/api/Banner'); // Replace with your URL
+        const response = await axios.get('http://localhost:5180/api/Banner'); 
         setBanner(response.data);
       } catch (err) {
         setError(err.message);
       }
     };
     getData();
-  }, []); // Empty 
+  }, []);
 
 
   return (
@@ -43,7 +43,7 @@ const Banner = () => {
         <img src={shap} alt="shap-2" className="w-5 h-8 -mt-7" />
       </div>
 
-      <p className="pt-5 max-w-[431px]">banner.description</p>
+      <p className="pt-5 max-w-[431px]">{banner.description}</p>
       <div className="mt-6">
         <Button asChild variant={"secondary"} >
           <Link to="/about-us">Ətraflı</Link>
@@ -64,7 +64,7 @@ const Banner = () => {
       <img src={banner.bottomFileName} alt="painting" />
     </div>
   </div>
-  {/* <!-- circle shap --> */}
+
   <div className="lg:block hidden">
     <div className="absolute left-0 top-[60px] animate-left-right-2">
       <img src={left_circle_1} alt="img" />
@@ -76,7 +76,7 @@ const Banner = () => {
       <img src={right_circle} alt="img" />
     </div>
   </div>
-  {/* <!-- circle shap --> */}
+ 
 </section>
 
   )}

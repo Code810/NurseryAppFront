@@ -20,7 +20,6 @@ const Blogs = () => {
         getBlogs();
     }, []);
 
-    // Function to format the date as "day short month"
     const formatDate = (dateString) => {
         const date = new Date(dateString);
         return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
