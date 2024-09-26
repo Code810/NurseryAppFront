@@ -1,27 +1,27 @@
 import React, { useState } from 'react'
 import DesktopMenu from './desktopMenu'
 import MobileMenu from './mobileMenu'
-import logo from "@/assets/images/logo.png"
 import { Button } from '@/components/ui/button'
 import { Link } from 'react-router-dom'
-import { FaMagnifyingGlass, FaArrowRight } from "react-icons/fa6";
+import {  FaArrowRight } from "react-icons/fa6";
 import TopHeader from './topHeader'
 import Logo from '@/components/ui/logo'
 import StickyHeader from '@/components/ui/stickyHeader'
 import { FaRegUser } from "react-icons/fa";
 
-const Header = () => {
+const Header = ({ settings }) => {
+    const logoSetting = settings?.find(s => s.key === 'logo');
+    
     const [isMobleMenuActive, setIsMobleMenuActive] = useState(false)
-
     return (
         <StickyHeader>
             <header id="header" className="sticky top-0 transition-[top] duration-300 z-40">
                 <div id="header-container">
-                    <TopHeader />
+                    <TopHeader settings={settings} />
                     <div className="[.header-pinned_&]:shadow-md bg-background transition-all duration-300">
                         <div className="container py-5 ">
                             <div className="flex justify-between items-center ">
-                                <Logo />
+                                <Logo logo={logoSetting} />
                                 <div className="flex items-center gap-5">
                                     <DesktopMenu />
                                     <MobileMenu isMobleMenuActive={isMobleMenuActive} setIsMobleMenuActive={setIsMobleMenuActive} />

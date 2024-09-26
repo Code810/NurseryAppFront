@@ -6,8 +6,8 @@ import SlideUp from '@/lib/animations/slideUp'
 
 const Card = ({ id, title, blog_desc, src, date }) => {
     return (
-        <SlideUp delay={id}>
-            <div className="bg-background group/card layer-card ">
+        <SlideUp delay={3}>
+            <div className="bg-background group/card layer-card w-[295px] ">
                 <div className="relative overflow-hidden">
                     <img src={src} alt="blog-1" className="w-full max-h-80 h-auto" />
                     <div className="bg-secondary rounded-[10px] max-w-[69px] max-h-[72px] h-full w-full flex justify-center items-center text-center p-2.5 absolute bottom-5 right-5 z-[1]">
@@ -23,7 +23,7 @@ const Card = ({ id, title, blog_desc, src, date }) => {
                 <div className="pt-7.5">
                     <h2 className="max-w-[377px]"><Link to={`/blog-details/${id}`} className="lg:text-2xl text-xl font-semibold leading-[140%] group-hover/card:text-secondary-foreground transition-all duration-500">{title}</Link></h2>
                     <p className="mt-[15px]">{blog_desc}</p>
-                    <Link to={"/blog-details"} className="inline-flex items-center gap-2.5 lg:mt-7.5 mt-4 group/btn">
+                    <Link to={`/blog-details/${id}`}  className="inline-flex items-center gap-2.5 lg:mt-7.5 mt-4 group/btn">
                         <span className="group-hover/btn:text-primary-foreground transition-all duration-500">Read More</span>
                         <span className="group-hover/btn:ml-1 group-hover/btn:text-primary-foreground text-primary-foreground transition-all duration-500"><FaArrowRight /> </span>
                     </Link>

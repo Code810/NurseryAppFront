@@ -1,16 +1,9 @@
 export const menuList = [
     {
         id: 1,
-        path: "#",
+        path: "/",
         label: "Ana Səhifə",
         dropDownMenu: false
-        // [
-        //     {
-        //         id: 1,
-        //         path: "/",
-        //         label: "Home-1",
-        //     }
-        // ]
     },
     {
         id: 2,
@@ -20,19 +13,19 @@ export const menuList = [
     },
     {
         id: 3,
-        path: "#",
+        path: "/blog",
         label: "Xəbərlər",
         dropDownMenu: false
     },
     {
         id: 4,
-        path: "#",
+        path: "teacher",
         label: "Müəllimlər",
         dropDownMenu: false
     },
     {
         id: 5,
-        path: "#",
+        path: "contact",
         label: "Əlaqə",
         dropDownMenu: false
     }

@@ -3,6 +3,7 @@ import axios from 'axios';
 import SectionName from '@/components/ui/sectionName';
 import Title from '@/components/ui/title';
 import Card from './card';
+import { getBlogsEndpoint } from '@/api';
 
 const Blogs = () => {
     const [blogs, setBlogs] = useState([]);
@@ -11,7 +12,7 @@ const Blogs = () => {
     useEffect(() => {
         const getBlogs = async () => {
           try {
-            const response = await axios.get('http://localhost:5180/api/Blog?count=3'); 
+            const response = await axios.get(getBlogsEndpoint()); 
             setBlogs(response.data);
           } catch (err) {
             setError(err.message);

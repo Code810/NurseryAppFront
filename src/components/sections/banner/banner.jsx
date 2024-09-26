@@ -7,6 +7,7 @@ import right_circle from "@/assets/images/banner/right-circle.png"
 import shap from "@/assets/images/banner/shap.png"
 import { Link } from 'react-router-dom'
 import Title from '@/components/ui/title'
+import { getBannerEndpoint } from '@/api';
 
 const Banner = () => {
   const [banner, setBanner] = useState(null);
@@ -15,7 +16,7 @@ const Banner = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get('http://localhost:5180/api/Banner'); 
+        const response = await axios.get(getBannerEndpoint());
         setBanner(response.data);
       } catch (err) {
         setError(err.message);

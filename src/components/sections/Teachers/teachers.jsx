@@ -3,21 +3,22 @@ import axios from 'axios';
 import SectionName from '@/components/ui/sectionName';
 import Title from '@/components/ui/title';
 import TeacherCard from './TeacherCard';
+import { getTeachersHomeEndpoint } from '@/api';
 
 const Teachers = () => {
   const [teachers, setTeachers] = useState([]);
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true); // Added loading state
+  const [loading, setLoading] = useState(true); 
 
   useEffect(() => {
     const getTeachers = async () => {
       try {
-        const response = await axios.get('http://localhost:5180/api/Teacher?count=3');
+        const response = await axios.get(getTeachersHomeEndpoint());
         setTeachers(response.data);
       } catch (err) {
         setError(err.message);
       } finally {
-        setLoading(false); // Set loading to false after data is fetched
+        setLoading(false); 
       }
     };
 

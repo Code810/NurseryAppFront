@@ -6,18 +6,17 @@ import Title from '@/components/ui/title';
 import SlideUp from '@/lib/animations/slideUp';
 import { Button } from '@/components/ui/button';
 import SectionName from '@/components/ui/sectionName';
+import { getGroupsHomeEndpoint } from '@/api';
 
 const Pricing = () => {
     const [groups, setGroups] = useState([]);
     const [error, setError] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    // Fetching the groups from the API
     useEffect(() => {
         const getGroups = async () => {
             try {
-                const response = await axios.get('http://localhost:5180/api/Group?count=3');
-                console.log(response.data);
+                const response = await axios.get(getGroupsHomeEndpoint());
                 setGroups(response.data);
             } catch (err) {
                 setError(err.message);
@@ -28,7 +27,6 @@ const Pricing = () => {
         getGroups();
     }, []);
 
-    // Handling loading and error states
     if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
