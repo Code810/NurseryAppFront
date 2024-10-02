@@ -1,13 +1,14 @@
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import Card from '@/components/sections/blogs/card';
 import PageTitle from '@/components/about/pageTitle';
-import { getBlogsSearch } from '@/api';
+import { getGroupsSearch } from '@/api';
 import Pagination from '@/components/ui/pagination';
+import GroupCard from '@/components/sections/Groups/GroupCard';
 
-const Blog = () => {
-  const [blogs, setBlogs] = useState([]);
-  const [totalBlogs, setTotalBlogs] = useState(0);
+const Group = () => {
+  const [groups, setGroups] = useState([]);
+  const [totalGroups, setTotalGroups] = useState(0);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
   const [currentPage, setCurrentPage] = useState(1);
@@ -15,33 +16,33 @@ const Blog = () => {
   const pageSize = 9;
 
   useEffect(() => {
-    const getBlogsAll = async () => {
-      setLoading(true); 
-      setError(null);  
+    const fetchGroups = async () => {
+      setLoading(true);
+      setError(null);
       try {
-        const response = await axios.get(getBlogsSearch(search, currentPage)); 
-        const blogsData = response.data?.items || [];
+        const response = await axios.get(getGroupsSearch(search, currentPage));
+        const groupsData = response.data?.items || [];
         const totalCount = response.data?.totalCount || 0;
 
-        setBlogs(blogsData);
-        setTotalBlogs(totalCount);
+        setGroups(groupsData);
+        setTotalGroups(totalCount);
       } catch (err) {
         if (err.response && err.response.status === 404) {
-          setError('Not Found');  
-          setBlogs([]);           
-          setTotalBlogs(0);       
+          setError('Not Found');
+          setGroups([]);
+          setTotalGroups(0);
         } else {
-          setError('An error occurred while fetching blogs.');
+          setError('An error occurred while fetching groups.');
         }
       } finally {
-        setLoading(false); 
+        setLoading(false);
       }
     };
-    getBlogsAll();
+    fetchGroups();
   }, [currentPage, search]);
 
   const handlePageChange = (page) => {
-    if (page >= 1 && page <= Math.ceil(totalBlogs / pageSize)) {
+    if (page >= 1 && page <= Math.ceil(totalGroups / pageSize)) {
       setCurrentPage(page);
       window.scrollTo(0, 0);
     }
@@ -49,28 +50,22 @@ const Blog = () => {
 
   const handleSearch = (e) => {
     if (e.key === 'Enter') {
-      setSearch(e.target.value); 
-      setCurrentPage(1); 
+      setSearch(e.target.value);
+      setCurrentPage(1);
     }
   };
 
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    return date.toLocaleDateString('en-GB', { day: 'numeric', month: 'short' });
-  };
-
-  const totalPages = Math.ceil(totalBlogs / pageSize);
+  const totalPages = Math.ceil(totalGroups / pageSize);
 
   return (
     <>
       <main>
-        <PageTitle pageName={"Xəbərlər"} />
+        <PageTitle pageName={"Qruplar"} />
         <div className="lg:pt-15 pt-10">
           <div className="container">
             <div className="flex lg:gap-[60px] gap-10 flex-wrap justify-center">
-           
               <input
-                onKeyUp={handleSearch} 
+                onKeyUp={handleSearch}
                 type="text"
                 name="search"
                 id="search"
@@ -78,24 +73,25 @@ const Blog = () => {
                 className="w-full h-10 border border-gray-400 px-10 rounded-md outline-none mx-5"
               />
 
-              {error && <p>{error}</p>}
-              
+              {error && <p className="text-red-500">{error}</p>}
+
               {loading ? (
-                <p>Loading blogs...</p>
+                <p>Loading groups...</p>
               ) : (
-                blogs && blogs.length > 0 ? ( 
-                  blogs.map(({ id, title, desc, fileName, createdDate }) => (
-                    <Card
+                groups.length > 0 ? (
+                  groups.map(({ price, id, name, maxAge, minAge, language }) => (
+                    <GroupCard
                       key={id}
                       id={id}
-                      src={fileName}
-                      title={title}
-                      blog_desc={desc}
-                      date={formatDate(createdDate)}
+                      name={name}
+                      maxAge={maxAge}
+                      price={price}
+                      minAge={minAge}
+                      language={language}
                     />
                   ))
-                ) : !error && ( 
-                  <p>No blogs found</p>
+                ) : (
+                  <p>No groups found</p>
                 )
               )}
             </div>
@@ -114,4 +110,6 @@ const Blog = () => {
   );
 };
 
-export default Blog;
+
+
+export default Group;

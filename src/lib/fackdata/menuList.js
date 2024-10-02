@@ -25,6 +25,12 @@ export const menuList = [
     },
     {
         id: 5,
+        path: "group",
+        label: "Qruplar",
+        dropDownMenu: false
+    },
+    {
+        id: 6,
         path: "contact",
         label: "Əlaqə",
         dropDownMenu: false

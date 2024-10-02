@@ -21,9 +21,9 @@ const Card = ({ id, title, blog_desc, src, date }) => {
                     </div>
                 </div>
                 <div className="pt-7.5">
-                    <h2 className="max-w-[377px]"><Link to={`/blog-details/${id}`} className="lg:text-2xl text-xl font-semibold leading-[140%] group-hover/card:text-secondary-foreground transition-all duration-500">{title}</Link></h2>
+                    <h2 className="max-w-[377px]"><Link to={`/BlogDetails/${id}`} className="lg:text-2xl text-xl font-semibold leading-[140%] group-hover/card:text-secondary-foreground transition-all duration-500">{title}</Link></h2>
                     <p className="mt-[15px]">{blog_desc}</p>
-                    <Link to={`/blog-details/${id}`}  className="inline-flex items-center gap-2.5 lg:mt-7.5 mt-4 group/btn">
+                    <Link to={`/BlogDetails/${id}`}  className="inline-flex items-center gap-2.5 lg:mt-7.5 mt-4 group/btn">
                         <span className="group-hover/btn:text-primary-foreground transition-all duration-500">Read More</span>
                         <span className="group-hover/btn:ml-1 group-hover/btn:text-primary-foreground text-primary-foreground transition-all duration-500"><FaArrowRight /> </span>
                     </Link>
