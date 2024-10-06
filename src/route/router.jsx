@@ -13,6 +13,12 @@ import ResetPassword from "@/pages/resetPassword";
 import NotFound from "@/pages/notfound";
 import Group from "@/pages/group";
 import BlogDetails from "@/pages/blog-details";
+import TeacherDetails from "@/pages/teacher-details";
+import Profile from "@/pages/profile";
+import ProfileMenu from "@/components/profileMenu/profileMenu";
+import RootProfile from "@/layout/rootProfile";
+import Students from "@/pages/Students";
+import Fees from "@/pages/Fees";
 
 
 export const router = createBrowserRouter([
@@ -48,6 +54,27 @@ export const router = createBrowserRouter([
                 path: "/BlogDetails/:id",
                 element: <BlogDetails/>
             },
+            {
+                path: "/TeacherDetails/:id",
+                element: <TeacherDetails/>
+            },
+            {
+                path: "/Profile",
+                element: <RootProfile/>,
+                children: [
+                    {
+                        path: "/Profile",
+                        element: <Profile/>
+                    },
+                    {
+                        path: "/Profile/students",
+                        element: <Students/>
+                    },
+                    {
+                        path: "/Profile/fees",
+                        element: <Fees/>
+                    },
+                ]},
         ]
     },
     {

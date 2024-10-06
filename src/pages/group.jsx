@@ -63,7 +63,7 @@ const Group = () => {
         <PageTitle pageName={"Qruplar"} />
         <div className="lg:pt-15 pt-10">
           <div className="container">
-            <div className="flex lg:gap-[60px] gap-10 flex-wrap justify-center">
+            <div className="flex lg:gap-[20px] gap-6 flex-wrap justify-center">
               <input
                 onKeyUp={handleSearch}
                 type="text"

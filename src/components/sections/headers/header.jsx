@@ -63,9 +63,9 @@ const Header = ({ settings }) => {
                         <div className="container py-5 ">
                             <div className="flex justify-between items-center ">
                                 <Logo logo={logoSetting} />
-                                <div className="flex items-center gap-5">
+                                <div className="flex items-center gap-3">
                                     <DesktopMenu />
-                                    <MobileMenu isMobleMenuActive={isMobleMenuActive} setIsMobleMenuActive={setIsMobleMenuActive} />
+                                    <MobileMenu settings={settings}  isMobleMenuActive={isMobleMenuActive} setIsMobleMenuActive={setIsMobleMenuActive} />
 
                                     <div className="flex items-center gap-4 ">
                                         {!isAuthenticated ? (
@@ -92,9 +92,9 @@ const Header = ({ settings }) => {
                                                             <div className="w-9">
                                                                 <img src={user} alt="" />
                                                             </div>
-                                                            <div className="profiledata">
+                                                            <div className="profiledata items-center flex">
                                                                 <span className='block px-2   text-sm   font-bold'>{decodeToken.given_name} {decodeToken.family_name}</span>
-                                                                <span className='block px-2   text-sm '><b>İstifadəçi: </b>{decodeToken.unique_name} </span>
+                                                                
                                                             </div>
                                                         </div>
                                                         <hr className='my-2' />

@@ -1,13 +1,17 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { FaPlus, FaXmark } from "react-icons/fa6";
-import logo from "@/assets/images/logo.png"
 import { menuList } from '@/lib/fackdata/menuList'
 import ExtraInfo from './extraInfo';
 
-const MobileMenu = ({ isMobleMenuActive, setIsMobleMenuActive }) => {
+const MobileMenu = ({ settings ,isMobleMenuActive, setIsMobleMenuActive }) => {
     const [dropdownActive, setDropdownActive] = useState(null)
     const {pathname} = useLocation()
+    const logo = settings?.find(s => s.key === 'logo').value;
+    const phoneSetting = settings?.find(s => s.key === 'phoneNumber').value;
+    const addressSetting = settings?.find(s => s.key === 'address').value;
+    const emailSetting = settings?.find(s => s.key === 'email').value;
+
 
     useEffect(() => {
         setDropdownActive(null)
@@ -20,8 +24,7 @@ const MobileMenu = ({ isMobleMenuActive, setIsMobleMenuActive }) => {
             <nav className={`bg-warm border-l-2 border-l-primary w-full max-w-md min-h-screen h-full overflow-y-auto p-7 shadow-md fixed  ${isMobleMenuActive ? "right-0" : "-right-full"} top-0 z-50 transition-all duration-500`}>
                 <div className="flex justify-between items-center">
                     <a href="" className="flex items-center gap-1">
-                        <img src={logo} alt="logo" />
-                        <span className="font-bold text-3xl ">Ascent</span>
+                        <img src={logo} alt="logo" className='w-[200px]' />
                     </a>
                     <div className="bg-primary w-10 h-10 text-cream-foreground flex items-center justify-center rounded-[4px] left-4" onClick={() => setIsMobleMenuActive(false)}>
                         <FaXmark className="text-xl" />
@@ -52,7 +55,7 @@ const MobileMenu = ({ isMobleMenuActive, setIsMobleMenuActive }) => {
                         })
                     }
                 </ul>
-                <ExtraInfo />
+                <ExtraInfo phoneSetting={phoneSetting} addressSetting={addressSetting} emailSetting={emailSetting} />
             </nav>
         </div>
     )

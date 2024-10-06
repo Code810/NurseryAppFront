@@ -18,6 +18,18 @@ export const getBlogDetailEndpoint = (id) => `${API_URL}/Blog/${id}`;
 export const postCommentEndpoint = () => `${API_URL}/Comment`;
 export const deleteCommentEndpoint = (commentId) => `${API_URL}/Comment/${commentId}`;
 export const updateCommentEndpoint = (editCommentId) => `${API_URL}/Comment/${editCommentId}`;
+export const getTeacherDetailEndpoint = (id) => `${API_URL}/teacher/${id}`;
+export const getStudentsEndpoint = (parentId) => `${API_URL}/Student?parentId=${parentId}`;
+export const getStudentEndpoint = (studentId) => `${API_URL}/Student/${studentId}`;
+export const studentCreateEndpoint = () => `${API_URL}/Student`;
+export const studentUpdateEndpoint = (stuid) => `${API_URL}/Student/${stuid}`;
+export const getParentEndpoint = (appUserId) => `${API_URL}/Parent/${appUserId}`;
+export const getFeesEndpoint = (studentId) => `${API_URL}/Fees/${studentId}`;
+export const getGroupsEndpoint = () => `${API_URL}/Group/all`;
+export const getFeeEndpoint = () => `${API_URL}/Fee/create-fee`;
+export const getPaymentCheachkEndpoint = () => `${API_URL}/Payment/create-payment-intent`;
+
+
 
 
 

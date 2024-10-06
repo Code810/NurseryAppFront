@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
-import { jwtDecode } from "jwt-decode"; // Fixed import
+import { jwtDecode } from "jwt-decode"; 
 import { FaCalendarDays, FaComments, FaUser } from 'react-icons/fa6';
 import { Button } from '@/components/ui/button';
 import SlideUp from '@/lib/animations/slideUp';
@@ -9,7 +9,7 @@ import { MdModeEdit, MdDelete } from "react-icons/md";
 import { getBlogDetailEndpoint, postCommentEndpoint, deleteCommentEndpoint, updateCommentEndpoint } from '@/api'; // Assuming these endpoints are defined
 
 const BlogArticle = () => {
-  const { id } = useParams(); // Get the 'id' from the route params
+  const { id } = useParams(); 
   const [blog, setBlog] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -42,7 +42,7 @@ const BlogArticle = () => {
 
   useEffect(() => {
     if (id) {
-      fetchBlog(); // Fetch the blog if 'id' exists
+      fetchBlog(); 
     }
   }, [id]);
 
@@ -56,7 +56,7 @@ const BlogArticle = () => {
         {
           message: newComment,
           blogId: id,
-          appUserId: tokenData?.nameid, // Assuming the token contains user id as `nameid`
+          appUserId: tokenData?.nameid, 
         },
         {
           headers: {
@@ -66,13 +66,13 @@ const BlogArticle = () => {
       );
 
       if (response.status === 200 || response.status === 201) {
-        // Add new comment to the existing comments
+       
         setBlog((prevBlog) => ({
           ...prevBlog,
           comments: [...prevBlog.comments, response.data],
         }));
         setNewComment('');
-        setCommentsVisible(true); // Ensure comments are visible after adding
+        setCommentsVisible(true); 
       }
     } catch (error) {
       console.error('Error submitting comment:', error);
@@ -119,7 +119,6 @@ const BlogArticle = () => {
         }
       );
 
-      // Update the comment in the comments list
       setBlog((prevBlog) => ({
         ...prevBlog,
         comments: prevBlog.comments.map((comment) =>

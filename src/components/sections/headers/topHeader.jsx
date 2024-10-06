@@ -20,7 +20,7 @@ const TopHeader = ({ settings }) => {
                             <li className='text-cream-foreground flex items-center gap-4'>
                                 <FaPhone />
                                 {phoneSetting ? (
-                                    <Link to={"#"}>{phoneSetting.value}</Link>
+                                    <Link  to={`tel:${phoneSetting}`} >{phoneSetting.value}</Link>
                                 ) : (
                                     <span>Loading phone...</span>
                                 )}
@@ -29,7 +29,7 @@ const TopHeader = ({ settings }) => {
                             <li className='text-cream-foreground flex items-center gap-4'>
                                 <FaEnvelope />
                                 {emailSetting ? (
-                                    <Link to={"#"}>{emailSetting.value}</Link>
+                                    <Link to={`mailto:${emailSetting}`}>{emailSetting.value}</Link>
                                 ) : (
                                     <span>Loading email...</span>
                                 )}
