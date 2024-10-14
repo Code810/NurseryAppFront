@@ -19,8 +19,15 @@ import ProfileMenu from "@/components/profileMenu/profileMenu";
 import RootProfile from "@/layout/rootProfile";
 import Students from "@/pages/Students";
 import Fees from "@/pages/Fees";
+import HomeWork from "@/pages/homeWork";
+import Setting from "@/pages/setting";
+import AttenDance from "@/pages/attenDance";
+import HomeWorks from "@/pages/HomeWorksAl";
+import HomeWorkDetail from "@/pages/homeWorkDetail";
+import AdminRoot from "@/layout/Admin/adminRoot";
+import Dashboard from "@/pages/admin/dashboard";
 
-
+// Define the router using createBrowserRouter
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -32,75 +39,102 @@ export const router = createBrowserRouter([
             },
             {
                 path: "/about-us",
-                element: <AboutUs/>
+                element: <AboutUs />
             },
             {
                 path: "/blog",
-                element: <Blog/>
+                element: <Blog />
             },
             {
                 path: "/teacher",
-                element: <Teacher/>
+                element: <Teacher />
             },
             {
                 path: "/group",
-                element: <Group/>
+                element: <Group />
             },
             {
                 path: "/contact",
-                element: <Contact/>
+                element: <Contact />
             },
             {
                 path: "/BlogDetails/:id",
-                element: <BlogDetails/>
+                element: <BlogDetails />
             },
             {
                 path: "/TeacherDetails/:id",
-                element: <TeacherDetails/>
+                element: <TeacherDetails />
             },
             {
                 path: "/Profile",
-                element: <RootProfile/>,
+                element: <RootProfile />,
                 children: [
                     {
-                        path: "/Profile",
-                        element: <Profile/>
+                        path: "HomeWork",
+                        element: <HomeWork />
                     },
                     {
-                        path: "/Profile/students",
-                        element: <Students/>
+                        path: "students",
+                        element: <Students />
                     },
                     {
-                        path: "/Profile/fees",
-                        element: <Fees/>
+                        path: "fees",
+                        element: <Fees />
                     },
-                ]},
+                    {
+                        path: "setting",
+                        element: <Setting />
+                    },
+                    {
+                        path: "attendace",
+                        element: <AttenDance />
+                    },
+                    {
+                        path: "homeworks",
+                        element: <HomeWorks />
+                    },
+                    {
+                        path: "homework-detail/:groupId/:homeworkId",
+                        element: <HomeWorkDetail />
+                    },
+                ]
+            },
+        ]
+    },
+    {
+        path: "/admin",
+        element: <AdminRoot />,
+        children: [
+            {
+                path: "/admin",
+                element: <Dashboard />
+            },
         ]
     },
     {
         path: "/login",
-        element: <Login/>
+        element: <Login />
     },
     {
         path: "/register",
-        element: <Register/>
+        element: <Register />
     },
     {
         path: "/confirmEmail",
-        element: <ConfirmEmail/>
+        element: <ConfirmEmail />
     },
     {
         path: "/ForgotPassword",
-        element: <ForgotPassword/>
+        element: <ForgotPassword />
     },
     {
         path: "/resetPassword",
-        element: <ResetPassword/>
+        element: <ResetPassword />
     },
     {
         path: "/*",
-        element: <NotFound/>
-    },
-    
-   
-])
+        element: <NotFound />
+    }
+]);
+
+export default router;

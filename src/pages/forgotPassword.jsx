@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
-import { getForgotPasswordEndpoint } from '@/api';
+import { api } from '@/utils/axios';
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
@@ -43,7 +42,7 @@ const ForgotPassword = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.get(getForgotPasswordEndpoint(), {
+      const response = await api().get(`/Auth/forget-password`, {
         params: {
           email,
         },

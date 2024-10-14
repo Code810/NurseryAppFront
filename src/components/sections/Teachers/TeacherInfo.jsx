@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
-import PageTitle from '@/components/about/pageTitle';
 import SocalIcons from '@/components/ui/socalIcons';
-import { getTeacherDetailEndpoint } from '@/api';
+import { api } from '@/utils/axios';
 
 const TeacherInfo = () => {
   const { id } = useParams(); 
@@ -14,7 +12,7 @@ const TeacherInfo = () => {
   useEffect(() => {
     const fetchTeacherDetails = async () => {
       try {
-        const response = await axios.get(getTeacherDetailEndpoint(id));
+        const response = await api().get(`/teacher/${id}`);
         setTeacher(response.data);
         setLoading(false);
       } catch (err) {

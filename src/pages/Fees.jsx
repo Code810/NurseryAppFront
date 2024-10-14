@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import axios from 'axios';
+import { api } from '@/utils/axios'
 import { loadStripe } from '@stripe/stripe-js';
 import { Elements } from '@stripe/react-stripe-js';
 import ModalPayment from '@/components/ui/ModalPayment';
 import CheckoutForm from '@/components/ui/CheckoutForm';
-import { getFeeEndpoint, getGroupsEndpoint, getStudentEndpoint, getStudentsEndpoint } from '@/api'; 
 
 const stripePromise = loadStripe('pk_test_51Q6f8OBwBCJxjGyAtkwvQQfKnRrV3U8kItftfwSoWvtTTtSuVgIS3m5NxRuEPUjXlQQHn0dLGIxQSLxMO1yCBHGi00ScXan2uE');
 
@@ -27,11 +26,7 @@ const FeesPage = () => {
 
       const fetchStudents = async () => {
         try {
-          const response = await axios.get(getStudentsEndpoint(parentId), {
-            headers: {
-              'Authorization': `Bearer ${authToken}`,
-            },
-          });
+          const response = await api().get(`/Student?parentId=${parentId}`);
           if (response.data && response.data.length > 0) {
             setStudents(response.data);
             setError('');
@@ -56,11 +51,7 @@ const FeesPage = () => {
       setSelectedStudent(student);
     } else {
       try {
-        const response = await axios.get(getStudentEndpoint(studentId), {
-          headers: {
-            'Authorization': `Bearer ${authToken}`,
-          },
-        });
+        const response = await api().get(`/Student/${studentId}`);
         if (response.data) {
           setSelectedStudent(response.data);
         } else {
@@ -75,11 +66,7 @@ const FeesPage = () => {
 
     if (!student?.group) {
       try {
-        const response = await axios.get(getGroupsEndpoint(), {
-          headers: {
-            'Authorization': `Bearer ${authToken}`,
-          },
-        });
+        const response = await api().get(`/Group/all`);
         setGroups(response.data.items || []);
       } catch (errors) {
         setError('Failed to fetch groups.');
@@ -120,7 +107,7 @@ const FeesPage = () => {
   
       const groupId = selectedStudent.group ? selectedStudent.group.id : selectedGroupId;
   
-      const response = await axios.post( getFeeEndpoint(),
+      const response = await api.post( `/Fee/create-fee`,
         {
           amount,
           studentId: selectedStudent.id,
@@ -129,7 +116,6 @@ const FeesPage = () => {
         },
         {
           headers: {
-            'Authorization': `Bearer ${authToken}`,
             'Content-Type': 'application/json',
           },
         }

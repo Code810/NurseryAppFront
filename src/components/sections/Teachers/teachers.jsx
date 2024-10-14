@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import SectionName from '@/components/ui/sectionName';
 import Title from '@/components/ui/title';
 import TeacherCard from './TeacherCard';
-import { getTeachersHomeEndpoint } from '@/api';
+import { api } from '@/utils/axios';
 
 const Teachers = () => {
   const [teachers, setTeachers] = useState([]);
@@ -13,7 +12,7 @@ const Teachers = () => {
   useEffect(() => {
     const getTeachers = async () => {
       try {
-        const response = await axios.get(getTeachersHomeEndpoint());
+        const response = await api().get(`/Teacher/all?count=3`);
         setTeachers(response.data);
       } catch (err) {
         setError(err.message);

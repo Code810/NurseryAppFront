@@ -2,8 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { Outlet } from 'react-router-dom'
 import Header from '@/components/sections/headers/header'
 import Footer from '@/components/sections/footers/footer'
-import { getSettingsEndpoint } from '@/api'
-import axios from 'axios'
+import { api } from '@/utils/axios'
 
 const RootLayout = () => {
     const [settings, setSettings] = useState(null);
@@ -12,7 +11,7 @@ const RootLayout = () => {
     useEffect(() => {
       const getSettings = async () => {
         try {
-          const response = await axios.get(getSettingsEndpoint()); 
+          const response = await api().get(`/Settings`); 
           setSettings(response.data);
         } catch (err) {
           setError(err.message);

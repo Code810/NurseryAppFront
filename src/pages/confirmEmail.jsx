@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
-import axios from 'axios';
-import { getConfirmEndpoint } from '@/api';
+import { api } from '@/utils/axios';
 
 const ConfirmEmail = () => {
     const [message, setMessage] = useState('');
@@ -25,7 +24,7 @@ const ConfirmEmail = () => {
 
     const confirmEmail = async (email, token) => {
         try {
-            const response = await axios.get(getConfirmEndpoint(), {
+            const response = await api().get(`/Auth/confirm-email`, {
                 params: {
                     email,
                     token

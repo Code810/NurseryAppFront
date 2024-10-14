@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useOutletContext } from 'react-router-dom';
-import axios from 'axios';
 import { Button } from '@/components/ui/button';
 import StudentCart from '@/components/sections/Student/studentCart';
-import { getStudentsEndpoint, studentCreateEndpoint, studentUpdateEndpoint } from '@/api';
 import Modal from '@/components/ui/modal';
+import { api } from '@/utils/axios';
 
 function Students() {
-  const { userData, userRole, authToken } = useOutletContext(); // Assuming authToken is provided here
+  const { userData, userRole, authToken } = useOutletContext(); 
   
   const [students, setStudents] = useState([]);
   const [error, setError] = useState('');
@@ -29,11 +28,7 @@ function Students() {
 
       const fetchStudents = async () => {
         try {
-          const response = await axios.get(getStudentsEndpoint(parentId), {
-            headers: {
-              'Authorization': `Bearer ${authToken}`
-            }
-          });
+          const response = await api().get(`/Student?parentId=${parentId}`);
           if (response.data && response.data.length > 0) {
             setStudents(response.data);
             setError('');
@@ -109,11 +104,9 @@ function Students() {
 
     try {
       if (isEditMode) {
-        // Update student
-        await axios.put(studentUpdateEndpoint(editStudentId), formDataToSend, {
+        await api().put(`/Student/${editStudentId}`, formDataToSend, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${authToken}`
           },
         });
         setStudents((prev) =>
@@ -122,11 +115,9 @@ function Students() {
           )
         );
       } else {
-        // Create student
-        const response = await axios.post(studentCreateEndpoint(), formDataToSend, {
+        const response = await api().post(`/Student`, formDataToSend, {
           headers: {
             'Content-Type': 'multipart/form-data',
-            'Authorization': `Bearer ${authToken}`
           },
         });
         setStudents((prev) => [...prev, response.data]);

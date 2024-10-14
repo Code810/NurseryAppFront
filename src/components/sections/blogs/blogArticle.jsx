@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import { jwtDecode } from "jwt-decode"; 
 import { FaCalendarDays, FaComments, FaUser } from 'react-icons/fa6';
 import { Button } from '@/components/ui/button';
 import SlideUp from '@/lib/animations/slideUp';
 import { MdModeEdit, MdDelete } from "react-icons/md";
-import { getBlogDetailEndpoint, postCommentEndpoint, deleteCommentEndpoint, updateCommentEndpoint } from '@/api'; // Assuming these endpoints are defined
+import { api } from '@/utils/axios';
 
 const BlogArticle = () => {
   const { id } = useParams(); 
@@ -31,7 +30,7 @@ const BlogArticle = () => {
 
   const fetchBlog = async () => {
     try {
-      const response = await axios.get(getBlogDetailEndpoint(id));
+      const response = await api().get(`/Blog/${id}`);
       setBlog(response.data);
       setLoading(false);
     } catch (err) {
@@ -51,17 +50,11 @@ const BlogArticle = () => {
 
     try {
       const token = localStorage.getItem('token');
-      const response = await axios.post(
-        postCommentEndpoint(),
+      const response = await api().post(`/Comment`,
         {
           message: newComment,
           blogId: id,
           appUserId: tokenData?.nameid, 
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }
       );
 
@@ -82,11 +75,7 @@ const BlogArticle = () => {
   const handleDeleteComment = async (commentId) => {
     try {
       const token = localStorage.getItem('token');
-      await axios.delete(deleteCommentEndpoint(commentId), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      await api().delete(`/Comment/${commentId}`);
 
       setBlog((prevBlog) => ({
         ...prevBlog,
@@ -107,15 +96,9 @@ const BlogArticle = () => {
 
     try {
       const token = localStorage.getItem('token');
-      await axios.put(
-        updateCommentEndpoint(editCommentId),
+      await api().put(`/Comment/${editCommentId}`,
         {
           message: editCommentValue,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
         }
       );
 

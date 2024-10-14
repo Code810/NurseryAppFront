@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import Title from '@/components/ui/title';
 import SectionName from '@/components/ui/sectionName';
-import { getGroupsHomeEndpoint } from '@/api';
 import GroupCard from '../Groups/GroupCard';
+import { api } from '@/utils/axios';
 
 const Pricing = () => {
     const [groups, setGroups] = useState([]);
@@ -13,7 +12,7 @@ const Pricing = () => {
     useEffect(() => {
         const getGroups = async () => {
             try {
-                const response = await axios.get(getGroupsHomeEndpoint());
+                const response = await api().get(`Group/all?count=3`);
                 setGroups(response.data);
             } catch (err) {
                 setError(err.message);

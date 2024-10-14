@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { Button } from '@/components/ui/button'
 import left_circle_1 from "@/assets/images/banner/left-circle-1.png"
 import left_circle_2 from "@/assets/images/banner/left-circle-2.png"
@@ -7,7 +6,7 @@ import right_circle from "@/assets/images/banner/right-circle.png"
 import shap from "@/assets/images/banner/shap.png"
 import { Link } from 'react-router-dom'
 import Title from '@/components/ui/title'
-import { getBannerEndpoint } from '@/api';
+import { api } from '@/utils/axios';
 
 const Banner = () => {
   const [banner, setBanner] = useState(null);
@@ -16,7 +15,7 @@ const Banner = () => {
   useEffect(() => {
     const getData = async () => {
       try {
-        const response = await axios.get(getBannerEndpoint());
+        const response = await api().get(`/Banner`);
         setBanner(response.data);
       } catch (err) {
         setError(err.message);

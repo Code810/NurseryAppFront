@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { getResetPasswordEndoint } from '@/api';
+import { api } from '@/utils/axios';
 
 const ResetPassword = () => {
   const [newPassword, setNewPassword] = useState('');
@@ -35,7 +34,7 @@ const ResetPassword = () => {
     }
 
     try {
-        const response = await axios.post(getResetPasswordEndoint(encodeURIComponent(email),encodeURIComponent(token)), {
+        const response = await api().post(`/Auth/reset-password?email=${encodeURIComponent(email)}&token=${encodeURIComponent(token)}`, {
             password: newPassword,
             rePassword: newRePassword
         });

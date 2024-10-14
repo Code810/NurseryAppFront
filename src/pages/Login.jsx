@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
-import { getLoginEndpoint } from '@/api';
+import { FaEye, FaEyeSlash } from 'react-icons/fa';
+import { api } from '@/utils/axios';
 
 const Login = () => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [showPassword, setShowPassword] = useState(false);
   const [errorMessage, setErrorMessage] = useState('');
   const navigate = useNavigate(); 
 
@@ -13,7 +14,7 @@ const Login = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post(getLoginEndpoint(), {
+      const response = await api().post(`/Auth/login`, {
         userNameOrEmail: username, 
         password: password,
       });
@@ -60,21 +61,27 @@ const Login = () => {
             />
             {errorMessage && <p className="text-red-500 text-sm">{errorMessage}</p>}
           </div>
-          <div className="space-y-1">
+          <div className="space-y-1 relative">
             <label htmlFor="password" className="block text-sm font-medium text-gray-700">
               Şifrə
             </label>
             <input
               id="password"
               name="password"
-              type="password"
+              type={showPassword ? 'text' : 'password'}
               autoComplete="current-password"
               required
-              className={`w-full px-3 py-2 border ${errorMessage ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-400`}
+              className={` w-full px-3 py-2 border ${errorMessage ? 'border-red-500' : 'border-gray-300'} rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-pink-400`}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
             />
+            <div
+              className="absolute inset-y-0 right-3 flex items-center cursor-pointer top-4"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? <FaEyeSlash /> : <FaEye />}
+            </div>
           </div>
 
           <div>
@@ -90,7 +97,7 @@ const Login = () => {
         <div className="text-center">
           <Link to={"/forgotpassword"}  className="text-sm text-blue-600">Şifrəni unutmusan?</Link>
           <p className="text-sm text-gray-600">
-            profiliniz  yoxdur? <Link to={"/register"} className="font-medium text-pink-500">Qeydiyyat</Link>
+            profiliniz yoxdur? <Link to={"/register"} className="font-medium text-pink-500">Qeydiyyat</Link>
           </p>
         </div>
       </div>

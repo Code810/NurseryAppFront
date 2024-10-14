@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import ProfileMenu from '@/components/profileMenu/profileMenu';
-import {jwtDecode} from 'jwt-decode';
-import axios from 'axios';
-import { getParentEndpoint, getTeacherDetailEndpoint } from '@/api';
+import { jwtDecode } from 'jwt-decode';
+import { api } from '@/utils/axios';
 
 const RootProfile = () => {
   const [decodeToken, setDecodeToken] = useState({});
@@ -12,7 +11,7 @@ const RootProfile = () => {
   const [authToken, setAuthToken] = useState(null);
 
 
-  
+
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
@@ -20,7 +19,7 @@ const RootProfile = () => {
       const decoded = jwtDecode(token);
       setDecodeToken(decoded);
 
-      const roles = decoded.role; 
+      const roles = decoded.role;
       const appUserId = decoded.nameid;
 
       if (roles && appUserId) {
@@ -28,19 +27,18 @@ const RootProfile = () => {
           let url = '';
 
           if (role === 'parent') {
-            url =getParentEndpoint(appUserId);
+            url = `/Parent/${appUserId}`;
             setUserRole(role);
 
           } else if (role === 'teacher') {
-            url = getTeacherDetailEndpoint(appUserId);
+            url = `/teacher/${appUserId}`;
             setUserRole(role);
           }
-
           if (url) {
-            axios
-              .get(url)
+            api().get(url)
               .then(response => {
                 setUserData(response.data);
+
               })
               .catch(error => {
                 console.error(`Error fetching data for role ${role}:`, error);
@@ -51,11 +49,11 @@ const RootProfile = () => {
     }
   }, []);
 
-  
+
   return (
     <div className="min-h-screen bg-gray-50 text-slate-500 flex flex-col md:flex-row">
-      <ProfileMenu decodeToken={decodeToken} userRole={userRole}/>
-      <Outlet context={{  userData, userRole, authToken }} />
+      <ProfileMenu decodeToken={decodeToken} userRole={userRole} />
+      <Outlet context={{ userData, userRole, authToken }} />
     </div>
   );
 };

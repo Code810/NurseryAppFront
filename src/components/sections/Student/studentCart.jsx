@@ -3,8 +3,7 @@ import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
-import axios from 'axios';
-import { studentUpdateEndpoint } from '@/api';
+import { api } from '@/utils/axios';
 
 const StudentCart = ({ students, onEditStudent, onDeleteStudent, authToken }) => {
 
@@ -20,11 +19,7 @@ const StudentCart = ({ students, onEditStudent, onDeleteStudent, authToken }) =>
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.delete(studentUpdateEndpoint(studentId), {
-            headers: {
-              'Authorization': `Bearer ${authToken}`
-            }
-          });
+          await api().delete(`/Student/${studentId}`);
           onDeleteStudent(studentId);
           Swal.fire(
             'Deleted!',

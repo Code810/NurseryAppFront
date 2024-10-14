@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import PageTitle from '@/components/about/pageTitle';
-import {  getTeachersSearch } from '@/api';
 import Pagination from '@/components/ui/pagination';
 import TeacherCard from '@/components/sections/Teachers/TeacherCard';
+import { api } from '@/utils/axios';
 
 const Teacher = () => {
   const [teachers, setTeachers] = useState([]);
@@ -19,7 +18,7 @@ const Teacher = () => {
       setLoading(true); 
       setError(null);  
       try {
-        const response = await axios.get(getTeachersSearch(search, currentPage)); 
+        const response = await api().get(`/Teacher/all?text=${search}&page=${currentPage}`); 
         const teachersData = response.data?.items || [];
         const totalCount = response.data?.totalCount || 0;
 

@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import Card from '@/components/sections/blogs/card';
 import PageTitle from '@/components/about/pageTitle';
-import { getBlogsSearch } from '@/api';
 import Pagination from '@/components/ui/pagination';
+import { api } from '@/utils/axios';
 
 const Blog = () => {
   const [blogs, setBlogs] = useState([]);
@@ -19,7 +18,7 @@ const Blog = () => {
       setLoading(true); 
       setError(null);  
       try {
-        const response = await axios.get(getBlogsSearch(search, currentPage)); 
+        const response = await api().get(`/Blog/all?text=${search}&page=${currentPage}`); 
         const blogsData = response.data?.items || [];
         const totalCount = response.data?.totalCount || 0;
 

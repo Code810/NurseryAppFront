@@ -1,7 +1,6 @@
 import React from 'react';
 import { CardElement, useElements, useStripe } from '@stripe/react-stripe-js';
-import axios from 'axios';
-import { getPaymentCheachkEndpoint } from '@/api';
+import { api } from '@/utils/axios';
 
 const CheckoutForm = ({ amount, authToken, onPaymentSuccess }) => {
   const stripe = useStripe();
@@ -18,15 +17,13 @@ const CheckoutForm = ({ amount, authToken, onPaymentSuccess }) => {
 
     try {
      
-      const { data } = await axios.post(
-        getPaymentCheachkEndpoint(), 
+      const { data } = await api().post(`/Payment/create-payment-intent`, 
         {
           amount,
           currency: 'usd',
         },
         {
           headers: {
-            'Authorization': `Bearer ${authToken}`,
             'Content-Type': 'application/json',
           },
         }

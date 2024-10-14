@@ -1,10 +1,9 @@
 
 import React, { useEffect, useState } from 'react';
-import axios from 'axios';
 import PageTitle from '@/components/about/pageTitle';
-import { getGroupsSearch } from '@/api';
 import Pagination from '@/components/ui/pagination';
 import GroupCard from '@/components/sections/Groups/GroupCard';
+import { api } from '@/utils/axios';
 
 const Group = () => {
   const [groups, setGroups] = useState([]);
@@ -20,7 +19,7 @@ const Group = () => {
       setLoading(true);
       setError(null);
       try {
-        const response = await axios.get(getGroupsSearch(search, currentPage));
+        const response = await api().get(`/Group/all?text=${search}&page=${currentPage}`);
         const groupsData = response.data?.items || [];
         const totalCount = response.data?.totalCount || 0;
 

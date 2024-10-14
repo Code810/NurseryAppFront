@@ -1,8 +1,7 @@
 import React, { useRef, useState } from 'react';
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import emailjs from '@emailjs/browser';
-import { getRegisterEndpoint } from '@/api';
+import { api } from '@/utils/axios';
 
 const Register = () => {
     
@@ -60,7 +59,7 @@ const Register = () => {
             };
 
           
-            const response = await axios.post(getRegisterEndpoint(), registerRequest);
+            const response = await api().post(`/Auth/register`, registerRequest);
 
            
             if (response.status === 200 || response.status === 201) {
