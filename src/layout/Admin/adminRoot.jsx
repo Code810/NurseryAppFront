@@ -8,11 +8,10 @@ import Sidebar from './adminSideBar/adminSideBar';
 const AdminRoot = () => {
     const [sidebarOpen, setSidebarOpen] = useState(false);
 
-    console.log(sidebarOpen);
     return (
         <>
                 <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
-                <div className="flex h-screen overflow-hidden">
+                <div className="flex ">
             <ThemeProvider>
                 <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
                 <Outlet />

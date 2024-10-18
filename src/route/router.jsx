@@ -14,8 +14,6 @@ import NotFound from "@/pages/notfound";
 import Group from "@/pages/group";
 import BlogDetails from "@/pages/blog-details";
 import TeacherDetails from "@/pages/teacher-details";
-import Profile from "@/pages/profile";
-import ProfileMenu from "@/components/profileMenu/profileMenu";
 import RootProfile from "@/layout/rootProfile";
 import Students from "@/pages/Students";
 import Fees from "@/pages/Fees";
@@ -26,8 +24,18 @@ import HomeWorks from "@/pages/HomeWorksAl";
 import HomeWorkDetail from "@/pages/homeWorkDetail";
 import AdminRoot from "@/layout/Admin/adminRoot";
 import Dashboard from "@/pages/admin/dashboard";
+import Users from "@/pages/admin/users";
+import TeacherPage from "@/pages/admin/teacherPage";
+import TeacherCreate from "@/pages/admin/teacherCreate";
+import Parents from "@/pages/admin/parentPage";
+import ParentDetail from "@/pages/admin/parentDetail";
+import Blogs from "@/pages/admin/blogsPage";
+import BlogDetail from "@/pages/admin/blogDetail";
+import Groups from "@/pages/admin/groupPage";
+import GroupDetail from "@/pages/admin/groupDetail";
+import HomeWorksAdmin from "@/pages/admin/homeWorksAdmin";
+import FeesPage from "@/pages/admin/feesPage";
 
-// Define the router using createBrowserRouter
 export const router = createBrowserRouter([
     {
         path: "/",
@@ -109,6 +117,51 @@ export const router = createBrowserRouter([
                 path: "/admin",
                 element: <Dashboard />
             },
+            {
+                path: "/admin/users",
+                element: <Users />
+            },
+            {
+                path: "/admin/teachers",
+                element: <TeacherPage />
+            },
+            {
+                path: "/admin/teacherCreate",
+                element: <TeacherCreate />
+            },
+            {
+                path: "/admin/Parents",
+                element: <Parents />
+            },
+            {
+                path: "/admin/parentDetail",
+                element: <ParentDetail />
+            },
+            {
+                path: "/admin/blogs",
+                element: <Blogs />
+            },
+            {
+                path: "/admin/blogDetail",
+                element: <BlogDetail />
+            },
+            {
+                path: "/admin/groups",
+                element: <Groups />
+            },
+            {
+                path: "/admin/groupDetail",
+                element: <GroupDetail />
+            },
+            {
+                path: "/admin/homeWorks",
+                element: <HomeWorksAdmin />
+            },
+            {
+                path: "/admin/fees",
+                element: <FeesPage />
+            },
+    
         ]
     },
     {

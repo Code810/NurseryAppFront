@@ -2,12 +2,11 @@ import React, { useState, useEffect, useRef } from "react";
 import { NavLink, useLocation } from "react-router-dom";
 
 import SidebarLinkGroup from "./SidebarLinkGroup";
-import { MdAddTask, MdOutlineDashboard, MdOutlineDisplaySettings, MdOutlinePayment } from "react-icons/md";
+import { MdOutlineDashboard, MdOutlineDisplaySettings, MdOutlinePayment } from "react-icons/md";
 import { FaArrowLeft, FaHome, FaNewspaper, FaObjectUngroup, FaUsers } from "react-icons/fa";
 import MenuNavItem from "@/components/admin/menuNav";
 import { AiFillMessage } from "react-icons/ai";
-import { FaChildren } from "react-icons/fa6";
-import { IoSchoolSharp } from "react-icons/io5";
+import { IoMdMail } from "react-icons/io";
 
 function Sidebar({
     sidebarOpen,
@@ -66,7 +65,7 @@ function Sidebar({
             <div
                 id="sidebar"
                 ref={sidebar}
-                className={`flex lg:!flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 h-[100dvh] overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 bg-white dark:bg-gray-800 p-4 transition-all duration-200 ease-in-out ${sidebarOpen ? "translate-x-0" : "-translate-x-64"} ${variant === 'v2' ? 'border-r border-gray-200 dark:border-gray-700/60' : 'rounded-r-2xl shadow-sm'}`}
+                className={`flex lg:!flex flex-col absolute z-40 left-0 top-0 lg:static lg:left-auto lg:top-auto lg:translate-x-0 overflow-y-scroll lg:overflow-y-auto no-scrollbar w-64 lg:w-20 lg:sidebar-expanded:!w-64 2xl:!w-64 shrink-0 bg-white dark:bg-gray-800 p-4 transition-all duration-200 ease-in-out ${sidebarOpen ? "translate-x-0" : "-translate-x-64"} ${variant === 'v2' ? 'border-r border-gray-200 dark:border-gray-700/60' : 'rounded-r-2xl shadow-sm'}`}
             >
                 {/* Sidebar header */}
                 <div className="flex justify-between mb-10 pr-3 sm:px-2">
@@ -213,19 +212,14 @@ function Sidebar({
                                 </div>
                             </li>
 
-                              {/* students */}
-                              <li className={`pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] ${pathname === "/admin" || pathname.includes("dashboard") && "from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]"}`}>
-                                <MenuNavItem text="Uşaqlar" path="/admin/students" Icon={FaChildren} />
-                            </li>
-
                               {/* fees */}
                               <li className={`pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] ${pathname === "/admin" || pathname.includes("dashboard") && "from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]"}`}>
-                                <MenuNavItem text="Ödənilər" path="/admin/fees" Icon={MdOutlinePayment} />
+                                <MenuNavItem text="Ödənişlər" path="/admin/fees" Icon={MdOutlinePayment} />
                             </li>
 
                              {/* homeworks */}
                              <li className={`pl-4 pr-3 py-2 rounded-lg mb-0.5 last:mb-0 bg-[linear-gradient(135deg,var(--tw-gradient-stops))] ${pathname === "/admin" || pathname.includes("dashboard") && "from-violet-500/[0.12] dark:from-violet-500/[0.24] to-violet-500/[0.04]"}`}>
-                                <MenuNavItem text="Tapşırıqlar" path="/admin/homeworks" Icon={MdAddTask} />
+                                <MenuNavItem text="Müraciətlər" path="/admin/contacts" Icon={IoMdMail} />
                             </li>
 
                               {/* settings */}
