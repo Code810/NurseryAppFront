@@ -30,7 +30,6 @@ const HomeWorkDetail = () => {
       fetchHomeworkDetails(homeworkId, token);
       fetchStudents(groupId, homeworkId, token);
     } else {
-      console.error('No authToken found');
     }
   }, [groupId, homeworkId]);
 
@@ -48,7 +47,6 @@ const HomeWorkDetail = () => {
       setHomework(response.data);
       setLoadingHomework(false);
     } catch (error) {
-      console.error('Error fetching homework details:', error);
       setLoadingHomework(false);
     }
   };
@@ -68,7 +66,6 @@ const HomeWorkDetail = () => {
       setStudents(response.data);
       setLoadingStudents(false);
     } catch (error) {
-      console.error('Error fetching students:', error);
       setLoadingStudents(false);
     }
   };
@@ -111,7 +108,6 @@ const HomeWorkDetail = () => {
         fetchStudents(groupId, homeworkId, authToken); 
         setIsModalOpen(false); 
       } catch (error) {
-        console.error('Error updating submission:', error);
       }
     } else {
       try {
@@ -129,7 +125,6 @@ const HomeWorkDetail = () => {
         fetchStudents(groupId, homeworkId, authToken); 
         setIsModalOpen(false); 
       } catch (error) {
-        console.error('Error creating submission:', error);
       }
     }
   };

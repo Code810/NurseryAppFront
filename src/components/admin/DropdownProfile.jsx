@@ -1,19 +1,36 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import Transition from '@/utils/Transition';
 
 import UserAvatar from '@/assets/images/user.png';
+import { jwtDecode } from 'jwt-decode';
 
-function DropdownProfile({
-  align
-}) {
-
+function DropdownProfile({ align }) {
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [user, setUser] = useState({ firstName: '', lastName: '', role: '' });
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
+  const navigate = useNavigate(); // For navigation
 
-  // close on click outside
+  // Fetch and decode token on component mount
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        console.log(decodedToken);
+        setUser({
+          firstName: decodedToken.given_name ,
+          lastName: decodedToken.family_name ,
+          role: decodedToken.role,
+        });
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+  }, []);
+
   useEffect(() => {
     const clickHandler = ({ target }) => {
       if (!dropdown.current) return;
@@ -24,7 +41,6 @@ function DropdownProfile({
     return () => document.removeEventListener('click', clickHandler);
   });
 
-  // close if the esc key is pressed
   useEffect(() => {
     const keyHandler = ({ keyCode }) => {
       if (!dropdownOpen || keyCode !== 27) return;
@@ -33,6 +49,11 @@ function DropdownProfile({
     document.addEventListener('keydown', keyHandler);
     return () => document.removeEventListener('keydown', keyHandler);
   });
+
+  const handleSignOut = () => {
+    localStorage.removeItem('token'); // Remove token from localStorage
+    navigate('/'); // Redirect to home page
+  };
 
   return (
     <div className="relative inline-flex">
@@ -45,7 +66,9 @@ function DropdownProfile({
       >
         <img className="w-8 h-8 rounded-full" src={UserAvatar} width="32" height="32" alt="User" />
         <div className="flex items-center truncate">
-          <span className="truncate ml-2 text-sm font-medium text-gray-600 dark:text-gray-100 group-hover:text-gray-800 dark:group-hover:text-white">Acme Inc.</span>
+          <span className="truncate ml-2 text-sm font-medium text-gray-600 dark:text-gray-100 group-hover:text-gray-800 dark:group-hover:text-white">
+            {user.firstName} {user.lastName}
+          </span>
           <svg className="w-3 h-3 shrink-0 ml-1 fill-current text-gray-400 dark:text-gray-500" viewBox="0 0 12 12">
             <path d="M5.9 11.4L.5 6l1.4-1.4 4 4 4-4L11.3 6z" />
           </svg>
@@ -68,24 +91,17 @@ function DropdownProfile({
           onBlur={() => setDropdownOpen(false)}
         >
           <div className="pt-0.5 pb-2 px-3 mb-1 border-b border-gray-200 dark:border-gray-700/60">
-            <div className="font-medium text-gray-800 dark:text-gray-100">Acme Inc.</div>
-            <div className="text-xs text-gray-500 dark:text-gray-400 italic">Administrator</div>
+            <div className="font-medium text-gray-800 dark:text-gray-100">
+              {user.firstName} {user.lastName}
+            </div>
+            <div className="text-xs text-gray-500 dark:text-gray-400 italic">{user.role[0]}</div>
           </div>
           <ul>
             <li>
               <Link
                 className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3"
-                to="/settings"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
-              >
-                Settings
-              </Link>
-            </li>
-            <li>
-              <Link
-                className="font-medium text-sm text-violet-500 hover:text-violet-600 dark:hover:text-violet-400 flex items-center py-1 px-3"
-                to="/signin"
-                onClick={() => setDropdownOpen(!dropdownOpen)}
+                to="#"
+                onClick={handleSignOut}
               >
                 Sign Out
               </Link>
@@ -94,7 +110,7 @@ function DropdownProfile({
         </div>
       </Transition>
     </div>
-  )
+  );
 }
 
 export default DropdownProfile;

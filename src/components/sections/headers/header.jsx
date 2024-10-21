@@ -10,6 +10,7 @@ import Logo from '@/components/ui/logo';
 import StickyHeader from '@/components/ui/stickyHeader';
 import {jwtDecode} from "jwt-decode";
 import user from "@/assets/images/user.png";
+import { RiAdminFill } from "react-icons/ri";
 
 const Header = ({ settings }) => {
     const logoSetting = settings?.find(s => s.key === 'logo');
@@ -29,8 +30,7 @@ const Header = ({ settings }) => {
                 const decoded = jwtDecode(token);
                 setDecodeToken(decoded);
             } catch (error) {
-                console.error("Invalid token:", error);
-                handleLogout(); // Logout if the token is invalid
+                handleLogout(); 
             }
         }
 
@@ -49,7 +49,7 @@ const Header = ({ settings }) => {
     const handleLogout = () => {
         localStorage.removeItem('token');
         setIsAuthenticated(false);
-        setIsProfileMenuActive(false); // Close profile menu after logout
+        setIsProfileMenuActive(false); 
         navigate('/');
     };
 
@@ -69,14 +69,15 @@ const Header = ({ settings }) => {
     );
 
     const renderProfileMenu = () => (
-        <div className="relative" ref={profileMenuRef}>
+        <>
+ <div className="relative" ref={profileMenuRef}>
             <button
                 onClick={toggleProfileMenu}
                 className="flex items-center gap-2 px-4 text-[#ed145b] font-extrabold border-[#ed145b] border-2 rounded-full"
             >
                 <FaRegUser />
                 <span>{decodeToken.given_name}</span>
-            </button>
+            </button> 
             {isProfileMenuActive && (
                 <div className="absolute right-0 mt-2 p-[20px] w-[250px] bg-white border border-gray-300 rounded-md shadow-lg">
                     <div className="flex">
@@ -101,6 +102,15 @@ const Header = ({ settings }) => {
                 </div>
             )}
         </div>
+
+        {decodeToken.role && decodeToken.role.includes("admin") && (
+            <Link to={"/admin"} className="text-[#73be48] font-extrabold">
+                <RiAdminFill />
+            </Link>
+        )}
+        </>
+       
+        
     );
 
     return (

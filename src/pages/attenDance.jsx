@@ -33,7 +33,6 @@ const AttenDance = () => {
       setStudents(response.data);
       setLoading(false);
     } catch (error) {
-      console.error('Error fetching students:', error);
       setLoading(false);
     }
   };
@@ -65,7 +64,6 @@ const AttenDance = () => {
 
       showToast(`Davamiyyət ${status ? 'dərsdə' : 'qayıb'} olaraq dəyişdirildi`, 'success');
     } catch (error) {
-      console.error('Error marking attendance:', error);
       showToast('Failed to mark attendance', 'error');
     }
   };
@@ -141,7 +139,7 @@ const AttenDance = () => {
                       <label className="inline-flex items-center cursor-pointer mt-2">
                         <input
                           type="checkbox"
-                          checked={student.attenDance?.status || false} // check the checkbox if student is present
+                          checked={student.attenDance?.status || false} 
                           className="sr-only peer"
                           onChange={(e) => handleAttendance(student.id, e.target.checked)}
                         />

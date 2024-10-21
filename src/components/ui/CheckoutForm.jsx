@@ -39,13 +39,11 @@ const CheckoutForm = ({ amount, authToken, onPaymentSuccess }) => {
       });
 
       if (paymentResult.error) {
-        console.error(paymentResult.error.message);
         alert('Payment failed: ' + paymentResult.error.message);
       } else if (paymentResult.paymentIntent.status === 'succeeded') {
         onPaymentSuccess(paymentResult.paymentIntent.id);
       }
     } catch (error) {
-      console.error('Error processing payment:', error);
       alert('Failed to process payment');
     }
   };

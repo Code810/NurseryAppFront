@@ -40,7 +40,6 @@ const ConfirmEmail = () => {
                 setMessage('Email confirmation failed. Please try again.');
             }
         } catch (error) {
-            console.error("Error:", error);
             if (error.response && error.response.data && error.response.data.message) {
                 setMessage(error.response.data.message);
             } else {

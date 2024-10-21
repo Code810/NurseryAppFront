@@ -55,7 +55,6 @@ function ParentDetail() {
         await api().delete(`/Student/${studentId}`);
         setStudents((prev) => prev.filter((student) => student.id !== studentId));
       } catch (error) {
-        console.error('Error deleting student:', error);
       }
     }
   };
@@ -121,7 +120,6 @@ function ParentDetail() {
       }
       handleCloseModal();
     } catch (error) {
-      console.error('Error saving student:', error);
     }
   };
 

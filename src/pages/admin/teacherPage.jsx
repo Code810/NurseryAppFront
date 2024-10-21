@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
-import { FaEdit, FaEye, FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
+import { FaEdit, FaFacebook, FaInstagram, FaLinkedin, FaTwitter } from 'react-icons/fa';
 import { MdDelete } from 'react-icons/md';
 import Modal from '@/components/ui/modal';
 import { api } from '@/utils/axios';

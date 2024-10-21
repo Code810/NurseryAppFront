@@ -9,8 +9,7 @@ const RootProfile = () => {
   const [userData, setUserData] = useState(null);
   const [userRole, setUserRole] = useState(null);
   const [authToken, setAuthToken] = useState(null);
-
-
+  const [url, setUrl] = useState(null);
 
   useEffect(() => {
     const token = localStorage.getItem('token');
@@ -23,37 +22,41 @@ const RootProfile = () => {
       const appUserId = decoded.nameid;
 
       if (roles && appUserId) {
-        roles.forEach(role => {
-          let url = '';
-
-          if (role === 'parent') {
-            url = `/Parent/${appUserId}`;
-            setUserRole(role);
-
-          } else if (role === 'teacher') {
-            url = `/teacher/${appUserId}`;
-            setUserRole(role);
-          }
-          if (url) {
-            api().get(url)
-              .then(response => {
-                setUserData(response.data);
-
-              })
-              .catch(error => {
-                console.error(`Error fetching data for role ${role}:`, error);
-              });
-          }
-        });
+        if (roles.includes('parent')) {
+          setUrl(`/Parent/${appUserId}`);
+          setUserRole('parent');
+        } else if (roles.includes('teacher')) {
+          setUrl(`/teacher/${appUserId}`);
+          setUserRole('teacher');
+        } else if (roles.includes('admin')) {
+          setUserRole('admin');
+        } else {
+          setUserRole('member');
+        }
       }
     }
   }, []);
 
+  useEffect(() => {
+    if (url) {
+      api()
+        .get(url)
+        .then((response) => {
+          setUserData(response.data);
+        })
+        .catch((error) => {
+        });
+    }
+  }, [url]);
 
   return (
     <div className="min-h-screen bg-gray-50 text-slate-500 flex flex-col md:flex-row">
       <ProfileMenu decodeToken={decodeToken} userRole={userRole} />
-      <Outlet context={{ userData, userRole, authToken }} />
+      {userData ? (
+        <Outlet context={{ userData, userRole, authToken }} />
+      ) : (
+        <Outlet context={{ userRole, authToken }} />
+      )}
     </div>
   );
 };

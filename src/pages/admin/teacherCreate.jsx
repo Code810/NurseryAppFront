@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import { Link, useNavigate } from 'react-router-dom';
 import Select from 'react-select';
 import { Button } from '@/components/ui/button';
@@ -29,7 +28,6 @@ const TeacherCreate = () => {
       }));
       setUsers(userOptions);
     } catch (error) {
-      console.error('Error fetching users:', error);
     }
   };
 

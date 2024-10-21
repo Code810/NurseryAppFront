@@ -23,7 +23,6 @@ const ForgotPassword = () => {
         '6I45DkBAhOJuG-kDd'   
       )
       .then((result) => {
-        console.log('Email successfully sent!', result.text);
         setMessage('Password reset link has been sent to your email.');
         setErrorMessage('');
         
@@ -32,7 +31,6 @@ const ForgotPassword = () => {
         }, 3000); 
       })
       .catch((error) => {
-        console.error('Failed to send the email...', error.text);
         setErrorMessage('Failed to send email. Please try again later.');
         setMessage('');
       });
@@ -56,7 +54,6 @@ const ForgotPassword = () => {
         setErrorMessage('Email not found.');
       } else {
         setErrorMessage('An error occurred. Please try again.');
-        console.log(error);
       }
       setMessage('');
     }

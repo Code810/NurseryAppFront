@@ -31,9 +31,7 @@ const Register = () => {
             '6I45DkBAhOJuG-kDd'           
         )
         .then((result) => {
-            console.log('Email successfully sent!', result.text);
         }, (error) => {
-            console.error('Failed to send the email...', error.text);
         });
     };
    
@@ -211,7 +209,6 @@ const Register = () => {
                                     onChange={(e) => {
                                        
                                         setRelationToStudent(e.target.value);
-                                        console.log(e.target.value);
                                     }}
                                 >
                                     <optgroup label="Valideyn">

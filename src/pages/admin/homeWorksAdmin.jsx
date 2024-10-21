@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
-import { api } from '@/utils/axios'; // Assuming you're using this API utility
+import { api } from '@/utils/axios'; 
 
 const HomeWorksAdmin = () => {
   const { state } = useLocation();
-  const group = state?.group || {}; // Get the group from the state
+  const group = state?.group || {}; 
   const [homeworks, setHomeworks] = useState([]);
   const [loading, setLoading] = useState(true);
   const [errorMessage, setErrorMessage] = useState('');

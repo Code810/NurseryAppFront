@@ -73,7 +73,6 @@ function TableUsers({ users, setUsers }) {
         closeModal(); 
       }
     } catch (error) {
-      console.error('Error updating user:', error);
       showToast('Failed to update user.', 'error');
     }
   };
@@ -88,7 +87,6 @@ function TableUsers({ users, setUsers }) {
         showToast('User deleted successfully!', 'success');
       }
     } catch (error) {
-      console.error('Error deleting user:', error);
       showToast('Failed to delete user.', 'error');
     }
   };

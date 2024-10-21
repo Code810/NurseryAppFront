@@ -34,8 +34,7 @@ const FeesPage = () => {
             setError('No students found.');
           }
         } catch (errors) {
-          setError('Failed to fetch students.');
-          console.error('Error fetching students:', errors);
+          setError('');
         }
       };
 
@@ -59,7 +58,6 @@ const FeesPage = () => {
         }
       } catch (errors) {
         setError('Failed to fetch student details.');
-        console.error('Error fetching student details:', errors);
       }
     }
     setCurrentPage(1);
@@ -70,7 +68,6 @@ const FeesPage = () => {
         setGroups(response.data.items || []);
       } catch (errors) {
         setError('Failed to fetch groups.');
-        console.error('Error fetching groups:', errors);
       }
     } else {
       setGroups([]);
@@ -107,7 +104,7 @@ const FeesPage = () => {
   
       const groupId = selectedStudent.group ? selectedStudent.group.id : selectedGroupId;
   
-      const response = await api.post( `/Fee/create-fee`,
+      const response = await api().post( `/Fee/create-fee`,
         {
           amount,
           studentId: selectedStudent.id,
@@ -130,8 +127,8 @@ const FeesPage = () => {
       alert('Fee created successfully.');
       setIsModalOpen(false);
     } catch (errors) {
+      console.log(errors);
       setError('Failed to create fee.');
-      console.error('Error creating fee:', errors);
     }
   };
   

@@ -5,7 +5,7 @@ import { FaRegCalendarDays } from 'react-icons/fa6';
 
 const BlogDetail = () => {
   const location = useLocation();
-  const { blog } = location.state || {}; // Access the blog passed via state
+  const { blog } = location.state || {}; 
 
   return (
     <div className="container mx-auto p-8">

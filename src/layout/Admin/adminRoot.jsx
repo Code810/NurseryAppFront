@@ -10,14 +10,13 @@ const AdminRoot = () => {
 
     return (
         <>
+         <ThemeProvider>
                 <Header sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
                 <div className="flex ">
-            <ThemeProvider>
                 <Sidebar sidebarOpen={sidebarOpen} setSidebarOpen={setSidebarOpen} />
                 <Outlet />
-            </ThemeProvider>
-
         </div>
+        </ThemeProvider>
         </>
       
     )

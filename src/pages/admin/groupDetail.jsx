@@ -12,7 +12,6 @@ const GroupDetailPage = () => {
       const response = await api().get(`/Student/teacher?groupId=${groupId}`);
       setStudents(response.data); 
     } catch (error) {
-      console.error('Error fetching students:', error);
     }
   };
 

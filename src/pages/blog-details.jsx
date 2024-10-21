@@ -4,7 +4,7 @@ import PageTitle from '@/components/about/pageTitle';
 import BlogArticle from '@/components/sections/blogs/blogArticle';
 
 const BlogDetails = () => {
-  const { id } = useParams(); // Get the 'id' from the URL
+  const { id } = useParams();
 
   return (
     <>
@@ -13,7 +13,7 @@ const BlogDetails = () => {
         <div className='pt-15'>
           <div className='container'>
             <div className='grid xl:grid-cols-[850px_auto] lg:grid-cols-[670px_auto] grid-cols-1 gap-7.5 justify-center'>
-              <BlogArticle id={id} /> {/* Pass the 'id' as a prop */}
+              <BlogArticle id={id} /> 
             </div>
           </div>
         </div>

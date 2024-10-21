@@ -37,7 +37,6 @@ const GroupsPage = () => {
       setGroups(response.data.items);
       setTotalCount(response.data.totalCount);
     } catch (error) {
-      console.error('Error fetching groups:', error);
     }
   };
 
@@ -49,7 +48,6 @@ const GroupsPage = () => {
       const availableTeachers = response.data.items.filter((teacher) => teacher.groupId === 0); 
       setTeachers(availableTeachers); 
     } catch (error) {
-      console.error('Error fetching teachers:', error);
     }
   };
 
@@ -115,7 +113,6 @@ const GroupsPage = () => {
           setGroups(groups.filter((group) => group.id !== groupId));
           Swal.fire('Deleted!', 'The group has been deleted.', 'success');
         } catch (error) {
-          console.error('Error deleting group:', error);
           Swal.fire('Error!', 'There was a problem deleting the group.', 'error');
         }
       }
@@ -152,7 +149,6 @@ const GroupsPage = () => {
       }
       setIsModalOpen(false);
     } catch (error) {
-      console.error('Error submitting form:', error);
     }
   };
 

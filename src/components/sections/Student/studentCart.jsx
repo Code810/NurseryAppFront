@@ -32,7 +32,6 @@ const StudentCart = ({ students, onEditStudent, onDeleteStudent, authToken }) =>
             'Failed to delete the student. Please try again later.',
             'error'
           );
-          console.error('Error deleting student:', error);
         }
       }
     });

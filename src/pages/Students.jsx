@@ -37,7 +37,6 @@ function Students() {
             setError('No students found.');
           }
         } catch (errors) {
-          console.error(errors.request);
         }
       };
 
@@ -136,7 +135,6 @@ function Students() {
 
         setFormErrors(errorsObject);
       } else {
-        console.error('Error adding/updating student:', error);
       }
     }
   };

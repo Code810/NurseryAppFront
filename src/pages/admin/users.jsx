@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import TableUsers from '@/components/admin/tableUser';
 import { api } from '@/utils/axios';
 import { Button } from '@/components/ui/button';
@@ -15,7 +14,6 @@ function UsersPage() {
       });
       setUsers(response.data); 
     } catch (error) {
-      console.error('Error fetching users:', error);
     }
   };
 
@@ -36,7 +34,7 @@ function UsersPage() {
     <div className="container mx-auto p-4">
       <h1 className="text-2xl font-semibold mb-4">Users</h1>
 
-      <form onSubmit={handleSearchSubmit} className="mb-4 flex gap-4">
+      <form onSubmit={handleSearchSubmit} className="mb-4 flex gap-4 relative">
         <input
           type="text"
           value={searchText}
@@ -44,12 +42,14 @@ function UsersPage() {
           placeholder="Search users..."
           className="border p-2 rounded-md w-full"
         />
-        <Button
+      <div className=''>
+      <Button
           variant="outline"
           className="absolute end-[30px] h-[35px] mt-1"
         >
           Axtar
         </Button>
+      </div>
       </form>
 
       <TableUsers users={users} setUsers={setUsers}/>

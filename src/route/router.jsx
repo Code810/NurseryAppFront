@@ -35,6 +35,11 @@ import Groups from "@/pages/admin/groupPage";
 import GroupDetail from "@/pages/admin/groupDetail";
 import HomeWorksAdmin from "@/pages/admin/homeWorksAdmin";
 import FeesPage from "@/pages/admin/feesPage";
+import ContactUs from "@/pages/admin/contactUs";
+import ContactDetail from "@/pages/admin/ContactDetail";
+import Settings from "@/pages/admin/settings";
+import ChatPage from "@/components/sections/chat/chatPage";
+import AuthGuard from "@/components/authGuard/authGuard";
 
 export const router = createBrowserRouter([
     {
@@ -74,8 +79,20 @@ export const router = createBrowserRouter([
                 element: <TeacherDetails />
             },
             {
+                path: "chatPage",
+                element: (
+                    <AuthGuard>
+                        <ChatPage />
+                    </AuthGuard>
+                )
+            },
+            {
                 path: "/Profile",
-                element: <RootProfile />,
+                element: (
+                    <AuthGuard>
+                        <RootProfile />
+                    </AuthGuard>
+                ),
                 children: [
                     {
                         path: "HomeWork",
@@ -111,7 +128,11 @@ export const router = createBrowserRouter([
     },
     {
         path: "/admin",
-        element: <AdminRoot />,
+        element: (
+            <AuthGuard requiredRole="admin">
+                <AdminRoot />
+            </AuthGuard>
+        ),
         children: [
             {
                 path: "/admin",
@@ -161,7 +182,18 @@ export const router = createBrowserRouter([
                 path: "/admin/fees",
                 element: <FeesPage />
             },
-    
+            {
+                path: "/admin/contacts",
+                element: <ContactUs />
+            },
+            {
+                path: "/admin/contactdetail",
+                element: <ContactDetail />
+            },
+            {
+                path: "/admin/settings",
+                element: <Settings />
+            },
         ]
     },
     {

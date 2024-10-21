@@ -68,7 +68,6 @@ const BlogArticle = () => {
         setCommentsVisible(true); 
       }
     } catch (error) {
-      console.error('Error submitting comment:', error);
     }
   };
 
@@ -82,7 +81,6 @@ const BlogArticle = () => {
         comments: prevBlog.comments.filter((comment) => comment.id !== commentId),
       }));
     } catch (error) {
-      console.error('Error deleting comment:', error);
     }
   };
 
@@ -111,7 +109,6 @@ const BlogArticle = () => {
       setEditCommentId(null);
       setEditCommentValue('');
     } catch (error) {
-      console.error('Error updating comment:', error);
     }
   };
 

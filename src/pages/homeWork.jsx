@@ -28,8 +28,7 @@ const HomeWork = () => {
                         setError('No students found.');
                     }
                 } catch (errors) {
-                    setError('Failed to fetch students.');
-                    console.error('Error fetching students:', errors);
+                    setError('');
                 }
             };
 
@@ -49,7 +48,6 @@ const HomeWork = () => {
                 setHomeworks(response.data);
             } catch (errors) {
                 setError('');
-                console.error('Error fetching homework:', errors);
             }
         } else {
             setError('Selected student does not have a group.');
@@ -58,7 +56,7 @@ const HomeWork = () => {
 
     const handleViewHomework = async (homeworkId) => {
         setError('');
-        setSelectedHomework(homeworks.find(h => h.id === homeworkId)); // Get homework details
+        setSelectedHomework(homeworks.find(h => h.id === homeworkId)); 
         setIsModalOpen(true);
 
         try {
@@ -67,7 +65,6 @@ const HomeWork = () => {
 
         } catch (errors) {
             setError('');
-            console.error('Error fetching homework submission data:', errors);
         }
     };
 

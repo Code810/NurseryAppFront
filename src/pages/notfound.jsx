@@ -1,5 +1,5 @@
 import React from 'react';
-import './notfound.css'; // Import the custom CSS file for kid-friendly animations
+import './notfound.css'; 
 import { Link } from 'react-router-dom';
 
 const PageNotFound = () => {

@@ -70,7 +70,6 @@ const ContactForm = () => {
 
                 setFieldErrors(formattedErrors); 
             } else {
-                console.error('Error submitting the form:', error);
                 setError('Failed to submit the form. Please try again.');
             }
         } finally {

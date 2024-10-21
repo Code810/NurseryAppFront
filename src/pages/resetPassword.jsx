@@ -50,7 +50,6 @@ const ResetPassword = () => {
             setErrorMessage('Password reset failed. Please try again.');
         }
     } catch (error) {
-        console.error('Error:', error);
         if (error.response && error.response.data && error.response.data.message) {
             setErrorMessage(error.response.data.message);
         } else {

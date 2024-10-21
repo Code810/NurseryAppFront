@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import Swal from 'sweetalert2'; // Import SweetAlert
+import Swal from 'sweetalert2'; 
 import { FaEdit, FaEye, FaTrash } from 'react-icons/fa';
 import { Button } from '@/components/ui/button';
 import Modal from '@/components/ui/modal';
 import { jwtDecode } from 'jwt-decode';
-import { useNavigate } from 'react-router-dom'; // Import useNavigate for navigation
+import { useNavigate } from 'react-router-dom'; 
 import { api } from '@/utils/axios';
 
 const BlogsPage = () => {
@@ -21,7 +21,7 @@ const BlogsPage = () => {
     file: null,
   });
 
-  const navigate = useNavigate(); // Use useNavigate hook for navigation
+  const navigate = useNavigate(); 
 
   const fetchBlogs = async (text = '', page = 1) => {
     try {
@@ -31,7 +31,6 @@ const BlogsPage = () => {
       setBlogs(response.data.items);
       setTotalCount(response.data.totalCount);
     } catch (error) {
-      console.error('Error fetching blogs:', error);
     }
   };
 
@@ -44,7 +43,6 @@ const BlogsPage = () => {
     setCurrentPage(1);
   };
 
-  // Update to use navigate function for programmatic navigation
   const handleViewDetail = (blog) => {
     navigate('/admin/blogDetail', { state: { blog } });
   };
@@ -85,7 +83,6 @@ const BlogsPage = () => {
           setBlogs(blogs.filter((blog) => blog.id !== blogId));
           Swal.fire('Deleted!', 'Your blog has been deleted.', 'success');
         } catch (error) {
-          console.error('Error deleting blog:', error);
           Swal.fire('Error!', 'There was a problem deleting the blog.', 'error');
         }
       }
@@ -111,7 +108,6 @@ const BlogsPage = () => {
     const appUserId = getAppUserIdFromToken();
 
     if (!appUserId) {
-      console.error('AppUserId not found');
       return;
     }
 
@@ -138,7 +134,6 @@ const BlogsPage = () => {
       }
       setIsModalOpen(false);
     } catch (error) {
-      console.error('Error submitting form:', error);
     }
   };
 

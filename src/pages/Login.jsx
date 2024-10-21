@@ -21,7 +21,6 @@ const Login = () => {
 
       if (response.status === 200) {
         localStorage.setItem('token', response.data.token);
-        console.log('Login successful, token set in localStorage');
         setErrorMessage(''); 
         navigate('/'); 
       }
