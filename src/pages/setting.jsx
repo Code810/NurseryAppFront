@@ -224,7 +224,6 @@ const Setting = () => {
                 )}
             </section>
 
-            {/* Toast Notification */}
             <div id="toast" className="toast">
                 {toastMessage}
             </div>

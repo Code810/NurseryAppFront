@@ -23,7 +23,6 @@ function ParentDetail() {
   const [isEditMode, setIsEditMode] = useState(false);
   const [editStudentId, setEditStudentId] = useState(null);
 
-  // Function to handle editing a student
   const handleEditStudent = (student) => {
     setIsEditMode(true);
     setEditStudentId(student.id);
@@ -134,7 +133,7 @@ function ParentDetail() {
           <h3 className="text-lg font-semibold mb-2">Students</h3>
 
           <Button variant="secondary" onClick={handleAddStudent}>
-            Add New Student
+          Uşaq əlavə et
           </Button>
 
           <div className="overflow-x-auto mt-4">

@@ -45,7 +45,7 @@ const Blogs = () => {
                                     src={fileName} 
                                     title={title} 
                                     blog_desc={desc} 
-                                    date={formatDate(createdDate)} // Pass the formatted date
+                                    date={formatDate(createdDate)} 
                                 />
                             ))
                         ) : (

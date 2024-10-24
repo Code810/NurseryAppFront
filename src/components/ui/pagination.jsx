@@ -2,7 +2,7 @@ import React from 'react';
 import { FaAngleRight } from 'react-icons/fa6';
 
 const Pagination = ({ currentPage, totalPages, onPageChange }) => {
-  const pages = [...Array(totalPages).keys()].map(i => i + 1); // Create an array of page numbers
+  const pages = [...Array(totalPages).keys()].map(i => i + 1); 
 
   return (
     <ul className="flex items-center justify-center gap-[15px] my-[70px]">
@@ -16,15 +16,14 @@ const Pagination = ({ currentPage, totalPages, onPageChange }) => {
           } flex justify-center items-center border border-[#CCCCCC]`}
         >
           <button
-            onClick={() => onPageChange(page)} // Handle page change on click
+            onClick={() => onPageChange(page)} 
             className="text-2xl font-semibold leading-[140%]"
           >
-            {page < 10 ? `0${page}` : page} {/* Add leading 0 for pages 1-9 */}
+            {page < 10 ? `0${page}` : page} 
           </button>
         </li>
       ))}
 
-      {/* Next button */}
       <li
         className="w-15 h-15 rounded-[10px] transition-all duration-500 hover:bg-secondary flex justify-center items-center text-muted-foreground hover:text-cream-foreground border border-[#CCCCCC]"
       >

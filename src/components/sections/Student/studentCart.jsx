@@ -1,11 +1,25 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { FaEdit } from "react-icons/fa";
 import { MdDelete } from "react-icons/md";
 import { Link } from 'react-router-dom';
 import Swal from 'sweetalert2';
 import { api } from '@/utils/axios';
-
+import { IoChatboxEllipsesSharp } from 'react-icons/io5';
+import { jwtDecode } from 'jwt-decode';
 const StudentCart = ({ students, onEditStudent, onDeleteStudent, authToken }) => {
+  const [userId, setUserID] = useState('');
+  useEffect(() => {
+    const token = localStorage.getItem('token');
+    if (token) {
+      try {
+        const decodedToken = jwtDecode(token);
+        setUserID(decodedToken.nameid);
+      } catch (error) {
+        console.error('Error decoding token:', error);
+      }
+    }
+  }, []);
+
 
   const handleDeleteStudent = (studentId) => {
     Swal.fire({
@@ -76,10 +90,16 @@ const StudentCart = ({ students, onEditStudent, onDeleteStudent, authToken }) =>
           </td>
           <td className='flex gap-2 mt-6'>
             <Link onClick={() => onEditStudent(student)}>
-              <FaEdit className='text-[#0197c7]' id={student.id}/>
+              <FaEdit className='text-[#0197c7]' id={student.id} />
             </Link>
             <Link onClick={() => handleDeleteStudent(student.id)}>
               <MdDelete className='text-[#ed145b]' />
+            </Link>
+            <Link
+              to="/chatpage"
+              state={{ groupId: student.id, userId: userId }}
+            >
+              <IoChatboxEllipsesSharp />
             </Link>
           </td>
         </tr>

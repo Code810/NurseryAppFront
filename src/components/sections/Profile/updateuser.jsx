@@ -14,7 +14,8 @@ const UpdateUser = () => {
         relationToStudent: '',
         appUserId: ''
     });
-  
+    const [errors, setErrors] = useState({});
+
     const navigate = useNavigate();
     useEffect(() => {
         if (userData) {
@@ -50,11 +51,11 @@ const UpdateUser = () => {
 
     const handleCreateParent = async (e) => {
         e.preventDefault();
-        const decodedToken = jwtDecode(authToken); 
+        const decodedToken = jwtDecode(authToken);
         const appUserId = decodedToken.nameid;
-    
+
         try {
-            await api().post('/Parent', {
+            const response = await api().post('/Parent', {
                 adress: newParentData.adress,
                 relationToStudent: newParentData.relationToStudent,
                 appUserId: appUserId
@@ -63,24 +64,29 @@ const UpdateUser = () => {
                     'Content-Type': 'application/json',
                 },
             });
-    
-            // Show success message
-            showToast('Parent created successfully', 'success');
-    
-            // Remove the token from local storage
-            localStorage.removeItem('token');
-    
-            // Redirect to login page using react-router-dom's navigate
-            navigate('/login');
-    
+
+            if (response.status === 200 || response.status === 201) {
+                showToast('Parent created successfully', 'success');
+                localStorage.removeItem('token');
+                navigate('/login');
+            } else {
+                showToast('Failed to create parent', 'error');
+            }
         } catch (error) {
-            showToast('Failed to create parent', 'error');
+            console.log(error.response.data);
+
+            if (error.response && error.response.data) {
+                setErrors(error.response.data.errors || {});
+                const errorMessage = error.response.data.message || 'Failed to create parent';
+                showToast(errorMessage, 'error');
+            } else {
+                showToast('An unexpected error occurred.', 'error');
+            }
         }
     };
 
     const handleUpdateUser = async (e) => {
         e.preventDefault();
-
         try {
             if (userRole === 'parent') {
                 await api().put(`/Parent/${updatedUserData.id}`, {
@@ -111,7 +117,12 @@ const UpdateUser = () => {
                 showToast('Teacher updated successfully', 'success');
             }
         } catch (error) {
-            showToast('Failed to update user', 'error');
+            if (error.response && error.response.data) {
+                setErrors(error.response.data.errors || {});
+                showToast('Failed to update user', 'error');
+            } else {
+                showToast('An unexpected error occurred.', 'error');
+            }
         }
     };
 
@@ -130,6 +141,7 @@ const UpdateUser = () => {
                                 onChange={handleInputChange}
                                 className="border p-2 rounded w-full"
                             />
+                            {errors.adress && <p className="text-red-500">{errors.adress}</p>}
                         </div>
                         <div>
                             <label className="block font-semibold">Relation to Student:</label>
@@ -147,6 +159,7 @@ const UpdateUser = () => {
                                     <option value="Baba">Baba</option>
                                 </optgroup>
                             </select>
+                            {errors.relationToStudent && <p className="text-red-500">{errors.relationToStudent}</p>}
                         </div>
                         <Button
                             type="submit"
@@ -176,6 +189,7 @@ const UpdateUser = () => {
                                     onChange={handleInputChange}
                                     className="border p-2 rounded w-full"
                                 />
+                                {errors.Instagram && <p className="text-red-500">{errors.Instagram}</p>}
                             </div>
                             <div>
                                 <label className="block font-semibold">Facebook:</label>
@@ -186,6 +200,7 @@ const UpdateUser = () => {
                                     onChange={handleInputChange}
                                     className="border p-2 rounded w-full"
                                 />
+                                {errors.Facebook && <p className="text-red-500">{errors.Facebook}</p>}
                             </div>
                             <div>
                                 <label className="block font-semibold">Twitter:</label>
@@ -196,6 +211,7 @@ const UpdateUser = () => {
                                     onChange={handleInputChange}
                                     className="border p-2 rounded w-full"
                                 />
+                                {errors.Twitter && <p className="text-red-500">{errors.Twitter}</p>}
                             </div>
                             <div>
                                 <label className="block font-semibold">LinkedIn:</label>
@@ -206,6 +222,7 @@ const UpdateUser = () => {
                                     onChange={handleInputChange}
                                     className="border p-2 rounded w-full"
                                 />
+                                {errors.LinkedIn && <p className="text-red-500">{errors.LinkedIn}</p>}
                             </div>
                             <div>
                                 <label className="block font-semibold">Profile Picture:</label>
@@ -219,6 +236,7 @@ const UpdateUser = () => {
                                     }}
                                     className="border p-1 rounded w-[80%]"
                                 />
+                                {errors.image && <p className="text-red-500">{errors.image}</p>}
                             </div>
                         </div>
                         <Button
@@ -230,46 +248,47 @@ const UpdateUser = () => {
                         </Button>
                     </>
                 )}
-              {userRole === 'member' && (
-    <>
-        <div>
-            <label className="block font-semibold">Address:</label>
-            <input
-                type="text"
-                name="adress"
-                value={newParentData.adress || ''}
-                onChange={handleNewParentChange}
-                className="border p-2 rounded w-full"
-            />
-        </div>
-        <div>
-            <label className="block font-semibold">Relation to Student:</label>
-            <select
-                id="relationToStudent"
-                name="relationToStudent"
-                className="border p-2 rounded w-full"
-                value={newParentData.relationToStudent || ''}
-                onChange={handleNewParentChange}
-            >
-                <optgroup label="Valideyn">
-                    <option value="Ata">Ata</option>
-                    <option value="Ana">Ana</option>
-                    <option value="Nənə">Nənə</option>
-                    <option value="Baba">Baba</option>
-                </optgroup>
-            </select>
-        </div>
-        <Button
-            type="button"
-            variant="secondary"
-            className=" block font-semibold h-[40px] "
-            onClick={handleCreateParent}
-        >
-            Valideyn yarat
-        </Button>
-    </>
-)}
-
+                {userRole === 'member' && (
+                    <>
+                        <div>
+                            <label className="block font-semibold">Address:</label>
+                            <input
+                                type="text"
+                                name="adress"
+                                value={newParentData.adress || ''}
+                                onChange={handleNewParentChange}
+                                className="border p-2 rounded w-full"
+                            />
+                            {errors.adress && <p className="text-red-500">{errors.adress}</p>}
+                        </div>
+                        <div>
+                            <label className="block font-semibold">Relation to Student:</label>
+                            <select
+                                id="relationToStudent"
+                                name="relationToStudent"
+                                className="border p-2 rounded w-full"
+                                value={newParentData.relationToStudent || ''}
+                                onChange={handleNewParentChange}
+                            >
+                                <optgroup label="Valideyn">
+                                    <option value="Ata">Ata</option>
+                                    <option value="Ana">Ana</option>
+                                    <option value="Nənə">Nənə</option>
+                                    <option value="Baba">Baba</option>
+                                </optgroup>
+                            </select>
+                            {errors.RelationToStudent && <p className="text-red-500">{errors.RelationToStudent}</p>}
+                        </div>
+                        <Button
+                            type="button"
+                            variant="secondary"
+                            className=" block font-semibold h-[40px] "
+                            onClick={handleCreateParent}
+                        >
+                            Valideyn yarat
+                        </Button>
+                    </>
+                )}
             </form>
 
             <div id="toast" className="toast">

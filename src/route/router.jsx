@@ -40,6 +40,7 @@ import ContactDetail from "@/pages/admin/ContactDetail";
 import Settings from "@/pages/admin/settings";
 import ChatPage from "@/components/sections/chat/chatPage";
 import AuthGuard from "@/components/authGuard/authGuard";
+import AdminChatPage from "@/components/sections/chat/adminChatPage";
 
 export const router = createBrowserRouter([
     {
@@ -134,12 +135,9 @@ export const router = createBrowserRouter([
             </AuthGuard>
         ),
         children: [
+           
             {
                 path: "/admin",
-                element: <Dashboard />
-            },
-            {
-                path: "/admin/users",
                 element: <Users />
             },
             {
@@ -194,6 +192,11 @@ export const router = createBrowserRouter([
                 path: "/admin/settings",
                 element: <Settings />
             },
+            {
+                path: "/admin/chatpage",
+                element: <AdminChatPage />
+            },
+            
         ]
     },
     {

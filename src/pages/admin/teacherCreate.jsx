@@ -28,6 +28,7 @@ const TeacherCreate = () => {
       }));
       setUsers(userOptions);
     } catch (error) {
+      console.error(error);
     }
   };
 
@@ -49,7 +50,7 @@ const TeacherCreate = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setErrors([]); 
+    setErrors([]); // Clear previous errors
 
     const form = new FormData();
     form.append('File', formData.file);
@@ -65,12 +66,22 @@ const TeacherCreate = () => {
           'Content-Type': 'multipart/form-data',
         },
       });
-      navigate('/admin/teachers'); 
+      navigate('/admin/teachers');
     } catch (error) {
       if (error.response && error.response.data) {
-        const errorMessages = Object.entries(error.response.data.errors || {}).flatMap(([key, messages]) =>
-          Array.isArray(messages) ? messages : [messages]
-        );
+        const data = error.response.data;
+        
+        // If the error response has a message
+        const errorMessages = data.message ? [data.message] : [];
+        
+        // Handle the case where the errors array has objects like {Field: "Error message"}
+        if (data.errors && Array.isArray(data.errors)) {
+          data.errors.forEach(errObj => {
+            const fieldErrors = Object.values(errObj); // Get the error message from the object
+            errorMessages.push(...fieldErrors); // Push all error messages
+          });
+        }
+
         setErrors(errorMessages);
       } else {
         setErrors(['An unexpected error occurred.']);
@@ -157,12 +168,12 @@ const TeacherCreate = () => {
         {errors.length > 0 && (
           <div className="text-red-500 space-y-1">
             {errors.map((error, index) => (
-              <p key={index}>{error}</p>
+              <p key={index} className="text-red-500">{error}</p>
             ))}
           </div>
         )}
 
-        <Button variant="secondary">Create Teacher</Button>
+        <Button variant="secondary" type="submit">Create Teacher</Button>
       </form>
     </div>
   );

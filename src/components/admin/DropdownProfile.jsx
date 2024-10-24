@@ -11,15 +11,13 @@ function DropdownProfile({ align }) {
 
   const trigger = useRef(null);
   const dropdown = useRef(null);
-  const navigate = useNavigate(); // For navigation
+  const navigate = useNavigate(); 
 
-  // Fetch and decode token on component mount
   useEffect(() => {
     const token = localStorage.getItem('token');
     if (token) {
       try {
         const decodedToken = jwtDecode(token);
-        console.log(decodedToken);
         setUser({
           firstName: decodedToken.given_name ,
           lastName: decodedToken.family_name ,
@@ -51,8 +49,8 @@ function DropdownProfile({ align }) {
   });
 
   const handleSignOut = () => {
-    localStorage.removeItem('token'); // Remove token from localStorage
-    navigate('/'); // Redirect to home page
+    localStorage.removeItem('token'); 
+    navigate('/'); 
   };
 
   return (

@@ -26,7 +26,7 @@ const Login = () => {
       }
     } catch (error) {
       if (error.response && error.response.status === 401) {
-        setErrorMessage('Invalid username or password.');
+        setErrorMessage(error.response.data.message);
       } else {
         setErrorMessage('An error occurred during login. Please try again.');
       }

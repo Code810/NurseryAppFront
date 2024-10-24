@@ -4,11 +4,7 @@ import { cn } from '@/lib/utils'
 
 const Title = ({ children, size, className }) => {
 
-    // 7.5xl = 70px
-    // 6xl = 60px
-    // 5xl = 48px
-    // 4xl = 36px
-    // 3.5xl = 32px
+   
 
 
     if (size === "7.5xl") {

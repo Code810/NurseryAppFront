@@ -22,14 +22,12 @@ const StickyHeader = ({ children, top = '0px' }) => {
                 header.classList.add("header-pinned")
                 header.style.top = top_header ? `-${top_header.clientHeight}px` : top;
 
-                // set header height in root html
                 if (top_header) {
                     document.querySelector(':root').style.setProperty('--header-height', (header_container.clientHeight - top_header.clientHeight) + 'px');
                 }
                 else {
                     document.querySelector(':root').style.setProperty('--header-height', header_container.clientHeight + 'px');
                 }
-                // set header height in root html
 
             } else {
                 header.classList.remove("header-pinned")

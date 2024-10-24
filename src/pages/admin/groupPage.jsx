@@ -310,7 +310,7 @@ const GroupsPage = () => {
                 label: `${teachers.find((teacher) => teacher.id === formData.teacherId)?.firstName} ${teachers.find((teacher) => teacher.id === formData.teacherId)?.lastName}`
               } : null}
               placeholder="Müəllim seçin..."
-              isSearchable // Enable search in the select dropdown
+              isSearchable 
             />
           </div>
           <div className="text-center">

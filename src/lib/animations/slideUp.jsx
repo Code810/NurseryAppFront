@@ -22,7 +22,6 @@ const SlideUp = ({ children, delay = 1 }) => {
             initial="offscreen"
             whileInView="onscreen"
             viewport={{ once: true, amount: 0 }}
-            // className="overflow-hidden"
         >
             {children}
         </motion.div>

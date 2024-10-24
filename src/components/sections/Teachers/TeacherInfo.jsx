@@ -22,7 +22,7 @@ const TeacherInfo = () => {
     };
 
     if (id) {
-      fetchTeacherDetails(); // Fetch the teacher details if 'id' exists
+      fetchTeacherDetails(); 
     }
   }, [id]);
 
@@ -45,7 +45,6 @@ const TeacherInfo = () => {
                 <h2 className="text-3xl font-bold mt-5">{teacher.firstName} {teacher.lastName}</h2>
                 <p className="text-lg text-gray-600">Group: {teacher.groupName}</p>
 
-                {/* Social Media Links */}
                 <div className="mt-5">
                   <SocalIcons
                     facebook={teacher.facebook}

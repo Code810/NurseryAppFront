@@ -51,13 +51,9 @@ const RootProfile = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 text-slate-500 flex flex-col md:flex-row">
-      <ProfileMenu decodeToken={decodeToken} userRole={userRole} />
-      {userData ? (
-        <Outlet context={{ userData, userRole, authToken }} />
-      ) : (
-        <Outlet context={{ userRole, authToken }} />
-      )}
-    </div>
+    <ProfileMenu decodeToken={decodeToken} userRole={userRole} userData={userData} />
+    <Outlet context={{ userData, userRole, authToken }} />
+  </div>
   );
 };
 

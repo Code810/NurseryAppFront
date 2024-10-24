@@ -7,7 +7,7 @@ const Input = ({ id, type, placeholder, name, className, ...props }) => {
             {...props} 
             type={type} 
             id={id} 
-            name={name}  // Use the `name` prop to correctly bind to form data
+            name={name} 
             placeholder={placeholder} 
             required 
             className={cn(`rounded-[10px] border border-black pl-6 lg:py-7 py-4 max-h-20 w-full outline-none`, className)} 

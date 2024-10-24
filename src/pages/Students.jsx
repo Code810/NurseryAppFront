@@ -148,7 +148,7 @@ function Students() {
       <section className="mt-6 bg-white p-6 rounded-xl shadow-md">
         <div className="mb-4 me-25">
           <Button variant="secondary" onClick={handleAddStudent}>
-            Add New Student
+            Uşaq əlavə et
           </Button>
         </div>
 
