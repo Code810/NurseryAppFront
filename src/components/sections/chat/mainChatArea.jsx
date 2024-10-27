@@ -1,19 +1,19 @@
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import * as signalR from '@microsoft/signalr';
-import ScrollToBottom from 'react-scroll-to-bottom'; 
+import ScrollToBottom from 'react-scroll-to-bottom';
 import { api } from '@/utils/axios';
 
 const MainChatArea = ({ selectedUserId, setOnlineUsers, onlineUsers }) => {
     const [messages, setMessages] = useState([]);
     const [message, setMessage] = useState('');
     const connection = useRef(null);
-    const senderAppUserId = useRef(null); 
+    const senderAppUserId = useRef(null);
 
     useEffect(() => {
         const token = localStorage.getItem('token');
         const decodedToken = JSON.parse(atob(token.split('.')[1]));
-        senderAppUserId.current = decodedToken.nameid; 
+        senderAppUserId.current = decodedToken.nameid;
 
         const fetchMessages = async () => {
             try {
@@ -41,7 +41,7 @@ const MainChatArea = ({ selectedUserId, setOnlineUsers, onlineUsers }) => {
         const token = localStorage.getItem('token');
 
         connection.current = new signalR.HubConnectionBuilder()
-            .withUrl('http://localhost:5180/chathub', {
+            .withUrl(import.meta.env.VITE_SIGNALR_BASE_URL, {
                 accessTokenFactory: () => token,
                 withCredentials: true
             })
@@ -54,7 +54,7 @@ const MainChatArea = ({ selectedUserId, setOnlineUsers, onlineUsers }) => {
                 connection.current.on('ReceiveMessage', (senderId, receivedMessage) => {
                     if (senderId !== selectedUserId) return;
                     setMessages(prevMessages => [
-                        ...prevMessages, 
+                        ...prevMessages,
                         { senderAppUserId: senderId, message: receivedMessage }
                     ]);
                 });
@@ -82,7 +82,7 @@ const MainChatArea = ({ selectedUserId, setOnlineUsers, onlineUsers }) => {
             try {
                 await connection.current.invoke('SendMessageToUser', selectedUserId, message);
                 setMessages(prevMessages => [
-                    ...prevMessages, 
+                    ...prevMessages,
                     { senderAppUserId: senderAppUserId.current, message }
                 ]);
                 setMessage('');
@@ -94,27 +94,27 @@ const MainChatArea = ({ selectedUserId, setOnlineUsers, onlineUsers }) => {
 
     return (
         <>
-            <ScrollToBottom  className=" flex-1 overflow-y-auto p-4  ">
+            <ScrollToBottom className=" flex-1 overflow-y-auto p-4  ">
                 {messages.map((msg, index) => (
                     <div key={index} className={`flex mb-4 ${msg.senderAppUserId === senderAppUserId.current ? 'justify-end' : ''}`}>
                         {msg.senderAppUserId === senderAppUserId.current ? (
-                                 <>
-                                 <div className="flex max-w-96 bg-indigo-500 text-white rounded-lg p-3 gap-3">
-                                     <p className='text-white'>{msg.message}</p>
-                                 </div>
-                                 <div className="w-9 h-9 rounded-full flex items-center justify-center ml-2">
-                                     <img src="https://placehold.co/200x/73be48/ffffff.svg?text=ME&font=Lato" alt="My Avatar" className="w-8 h-8 rounded-full" />
-                                 </div>
-                             </>
+                            <>
+                                <div className="flex max-w-96 bg-indigo-500 text-white rounded-lg p-3 gap-3">
+                                    <p className='text-white'>{msg.message}</p>
+                                </div>
+                                <div className="w-9 h-9 rounded-full flex items-center justify-center ml-2">
+                                    <img src="https://placehold.co/200x/73be48/ffffff.svg?text=ME&font=Lato" alt="My Avatar" className="w-8 h-8 rounded-full" />
+                                </div>
+                            </>
                         ) : (
                             <>
-                            <div className="w-9 h-9 rounded-full flex items-center justify-center mr-2">
-                                <img src="https://placehold.co/200x/ed145b/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato" alt="User Avatar" className="w-8 h-8 rounded-full" />
-                            </div>
-                            <div className="flex max-w-96 bg-[#e1ffc7] rounded-lg p-3 gap-3">
-                                <p>{msg.message}</p>
-                            </div>
-                        </>
+                                <div className="w-9 h-9 rounded-full flex items-center justify-center mr-2">
+                                    <img src="https://placehold.co/200x/ed145b/ffffff.svg?text=ʕ•́ᴥ•̀ʔ&font=Lato" alt="User Avatar" className="w-8 h-8 rounded-full" />
+                                </div>
+                                <div className="flex max-w-96 bg-[#e1ffc7] rounded-lg p-3 gap-3">
+                                    <p>{msg.message}</p>
+                                </div>
+                            </>
                         )}
                     </div>
                 ))}

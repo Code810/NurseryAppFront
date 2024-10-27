@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button';
 import contact_1 from "@/assets/images/contact/contact-1.png";
 import SectionName from '@/components/ui/sectionName';
 import Input from '@/components/ui/input';
-import axios from 'axios';
+import { api } from '@/utils/axios';
 
 const ContactForm = () => {
     const [formData, setFormData] = useState({
@@ -35,7 +35,7 @@ const ContactForm = () => {
         setFieldErrors({}); 
 
         try {
-            const response = await axios.post('http://localhost:5180/api/Contact', {
+            const response = await api().post('/Contact', {
                 fullName: formData.fullName,
                 email: formData.email,
                 adress: formData.address,  
