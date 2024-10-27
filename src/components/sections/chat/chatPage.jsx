@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import { api } from '@/utils/axios';
-import MainChatArea from './MainChatArea';
+import MainChatArea from './mainChatArea';
 
 const ChatPage = () => {
     const location = useLocation();
